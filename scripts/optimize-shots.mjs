@@ -1,9 +1,10 @@
 /**
  * Turns chosen candidate screenshots into the finals the site ships.
  *
- * Wide captures are resized and re-encoded. Portrait captures are centred on a
- * plain black plate at their native pixel density, so a phone screenshot reads
- * as a landscape card without being cropped or softened.
+ * Every image ships as the screen itself, with nothing around it. Wide captures
+ * are resized and re-encoded; phone captures keep their own tall aspect ratio
+ * and the page frames them to match, so no screenshot ever sits inside a band
+ * of dead space.
  *
  * Nothing here ever upscales: an image smaller than the target width is
  * encoded at its own size instead, because upscaling is what makes a
@@ -19,9 +20,8 @@ const CANDIDATES = path.resolve("public/screenshots/candidates");
 const FINAL = path.resolve("public/screenshots");
 
 const WIDE = 1600;
-const PLATE_W = 1600;
-const PLATE_H = 1000;
-const BLACK = "#0a0a0f";
+/** Phone screens render at most a third of the page width, so this is ample. */
+const PHONE_W = 900;
 
 const wide = [
   { from: "automa/desktop-hero.png", to: "automa-product.webp" },
@@ -42,46 +42,17 @@ const wide = [
 ];
 
 /**
- * Portrait captures, centred on black.
- *
- * Each one is written twice: a landscape plate for the project card on the home
- * page, which sits in a 16:10 frame, and a tall plate for the case study
- * gallery, where a portrait frame lets the phone render nearly three times
- * larger than it would inside a letterbox.
+ * Phone captures, shipped as the screen and nothing else. No plate, no
+ * padding: the frame on the page takes the image's own aspect ratio, so there
+ * is never a band of dead space around a screenshot.
  */
-const plated = [
-  { from: "poker-splitter/flow-03-filled.png", to: "poker-create.webp" },
-  { from: "poker-splitter/flow-04-room.png", to: "poker-room.webp" },
-  {
-    from: "poker-splitter/flow-03-filled.png",
-    to: "poker-create-tall.webp",
-    plate: { w: 760, h: 1040 },
-  },
-  {
-    from: "poker-splitter/flow-04-room.png",
-    to: "poker-room-tall.webp",
-    plate: { w: 760, h: 1040 },
-  },
+const phones = [
+  { from: "poker-splitter/game-02-table.png", to: "poker-table.webp" },
+  { from: "poker-splitter/game-06-settlement.png", to: "poker-settlement.webp" },
+  { from: "poker-splitter/game-01-lobby.png", to: "poker-lobby.webp" },
 ];
 
 await mkdir(FINAL, { recursive: true });
-
-const plate = (w, h) =>
-  Buffer.from(
-    `<svg width="${w}" height="${h}" xmlns="http://www.w3.org/2000/svg">
-       <rect width="100%" height="100%" fill="${BLACK}"/>
-     </svg>`,
-  );
-
-/** Softens only the corners, so the shot sits on the plate without a hard edge. */
-async function rounded(buffer, width, height, radius) {
-  const mask = Buffer.from(
-    `<svg width="${width}" height="${height}" xmlns="http://www.w3.org/2000/svg">
-       <rect width="${width}" height="${height}" rx="${radius}" ry="${radius}" fill="#fff"/>
-     </svg>`,
-  );
-  return sharp(buffer).composite([{ input: mask, blend: "dest-in" }]).png().toBuffer();
-}
 
 for (const item of wide) {
   const source = sharp(path.join(CANDIDATES, item.from));
@@ -111,32 +82,44 @@ for (const item of wide) {
   console.log(`  ${item.to.padEnd(24)} ${target}px wide · ratio ${ratio}`);
 }
 
-for (const item of plated) {
-  const { w: plateW, h: plateH } = item.plate ?? { w: PLATE_W, h: PLATE_H };
-  // Leave a small margin so the shot never touches the edge of the plate.
-  const inner = plateH - 80;
-
-  const shot = await sharp(path.join(CANDIDATES, item.from))
-    .resize({ height: inner, kernel: sharp.kernel.lanczos3 })
-    .png()
-    .toBuffer();
-  const { width, height } = await sharp(shot).metadata();
-  const withCorners = await rounded(shot, width, height, 16);
-
+for (const item of phones) {
   const out = path.join(FINAL, item.to);
-  await sharp(plate(plateW, plateH))
-    .composite([
-      {
-        input: withCorners,
-        top: Math.round((plateH - height) / 2),
-        left: Math.round((plateW - width) / 2),
-      },
-    ])
-    .webp({ quality: 92 })
+  const meta = await sharp(path.join(CANDIDATES, item.from)).metadata();
+  const width = Math.min(PHONE_W, meta.width);
+
+  await sharp(path.join(CANDIDATES, item.from))
+    .resize({ width, kernel: sharp.kernel.lanczos3 })
+    .webp({ quality: 90 })
     .toFile(out);
-  console.log(
-    `  ${item.to.padEnd(26)} shot ${width}x${height} on a ${plateW}x${plateH} plate`,
-  );
+
+  const height = Math.round((meta.height / meta.width) * width);
+  console.log(`  ${item.to.padEnd(26)} ${width}x${height}  ratio ${width} / ${height}`);
+}
+
+/**
+ * The project card on the home page is a fixed 16:10 frame, which a portrait
+ * phone cannot fill. Rather than letterbox it, take a landscape band from the
+ * middle of the table, centred on the pot.
+ */
+{
+  const source = path.join(CANDIDATES, "poker-splitter/game-02-table.png");
+  const meta = await sharp(source).metadata();
+
+  // Trim the dark surround the app draws either side of the felt, so the crop
+  // is table and nothing else.
+  const left = Math.round(meta.width * 0.075);
+  const width = Math.round(meta.width * 0.85);
+  const bandHeight = Math.round((width / 16) * 10);
+  const centre = Math.round(meta.height * 0.45); // the felt, centred on the pot
+  const top = Math.max(0, Math.min(centre - bandHeight / 2, meta.height - bandHeight));
+
+  const out = path.join(FINAL, "poker-cover.webp");
+  await sharp(source)
+    .extract({ left, top: Math.round(top), width, height: bandHeight })
+    .resize({ width: WIDE, kernel: sharp.kernel.lanczos3 })
+    .webp({ quality: 88 })
+    .toFile(out);
+  console.log(`  poker-cover.webp           ${WIDE}px wide, felt only`);
 }
 
 console.log(`\nfinals in ${FINAL}`);

@@ -44,6 +44,8 @@ export type Project = {
   coverAlt: string;
   /** A live, scrollable embed of the real site, shown instead of a still. */
   embed?: { url: string; label: string; note: string };
+  /** Columns the gallery lays out in on a wide screen. Three suits phone shots. */
+  galleryColumns?: 2 | 3;
   gallery: MediaItem[];
   video?: {
     /** Muted looping preview used on the flagship card. */
@@ -253,22 +255,30 @@ export const projects: Project[] = [
     links: [
       { label: "Open the live app", href: "https://poker-splitter.web.app", kind: "live" },
     ],
-    cover: "/screenshots/poker-create.webp",
-    coverAlt: "Poker Splitter room creation, with avatars, buy in and chip values",
+    cover: "/screenshots/poker-cover.webp",
+    coverAlt: "The Poker Splitter felt, with the total pot and two players seated",
+    galleryColumns: 3,
     gallery: [
       {
-        src: "/screenshots/poker-create-tall.webp",
-        alt: "Poker Splitter room creation: name, twelve preset avatars, buy in and chip denominations",
-        caption:
-          "Room setup: twelve preset avatars, a buy in, and the chip denominations the vision model will count against.",
-        ratio: "760 / 1040",
-      },
-      {
-        src: "/screenshots/poker-room-tall.webp",
-        alt: "A live Poker Splitter room showing the six character code, share and QR buttons, and the player list",
+        src: "/screenshots/poker-lobby.webp",
+        alt: "A Poker Splitter lobby showing the room code, a QR invite, and four players who have joined",
         caption:
           "The lobby: a six character code, a QR invite, and players appearing live as they join.",
-        ratio: "760 / 1040",
+        ratio: "900 / 1951",
+      },
+      {
+        src: "/screenshots/poker-table.webp",
+        alt: "The live Poker Splitter table with four players seated around the felt and a total pot of 450 dollars",
+        caption:
+          "The live table, rendered from your own seat. Buy ins and rebuys land here in realtime.",
+        ratio: "900 / 1951",
+      },
+      {
+        src: "/screenshots/poker-settlement.webp",
+        alt: "The Poker Splitter settlement screen listing three payments needed to settle the table",
+        caption:
+          "The settlement. Four players and a 450 dollar pot reduced to three payments, and no argument.",
+        ratio: "900 / 1951",
       },
     ],
     accent: "#7fe38f",

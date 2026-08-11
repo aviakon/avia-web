@@ -17,11 +17,12 @@ export function Toolkit() {
       <div className="relative mx-auto max-w-6xl px-5 sm:px-8">
         <SectionHeading
           eyebrow="Capabilities"
+          oneLine
           title={
             <>
-              Four things I do,{" "}
+              What I do,{" "}
               <span className="font-display text-ink-muted italic">
-                and where each one is proven
+                and where it is proven
               </span>
             </>
           }

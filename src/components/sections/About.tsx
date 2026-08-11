@@ -36,6 +36,7 @@ export function About() {
           <div>
             <SectionHeading
               eyebrow="About"
+              oneLine
               title={
                 <>
                   I build with AI,{" "}

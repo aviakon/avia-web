@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { navLinks, site } from "@/data/site";
+import { ContactDialog } from "./ContactDialog";
 
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
@@ -57,12 +58,7 @@ export function Navbar() {
             ))}
           </ul>
 
-          <a
-            href={`mailto:${site.email}`}
-            className="edge bg-surface hover:border-accent/50 hover:text-accent rounded-md px-3.5 py-2 text-sm font-medium transition-colors"
-          >
-            Get in touch
-          </a>
+          <ContactDialog />
         </div>
       </nav>
     </header>

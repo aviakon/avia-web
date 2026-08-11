@@ -58,11 +58,10 @@ export function Footer() {
         </div>
       </div>
 
-      <div className="border-hairline text-ink-muted mx-auto flex max-w-6xl flex-col gap-1 border-t px-5 py-6 font-mono text-[11px] sm:flex-row sm:items-center sm:justify-between sm:px-8">
+      <div className="border-hairline text-ink-muted mx-auto max-w-6xl border-t px-5 py-6 font-mono text-[11px] sm:px-8">
         <span>
           © {new Date().getFullYear()} {site.name}
         </span>
-        <span>Built with Next.js, Tailwind and Claude Code.</span>
       </div>
     </footer>
   );

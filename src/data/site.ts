@@ -17,6 +17,12 @@ export const site = {
   shortBio:
     "I design and ship complete AI products: the interface, the agent behind it, the automations that keep it running, and the marketing that sells it. Most of it is built with Claude Code as my development environment, which is how one person covers that much surface area.",
   email: "avia.konfino@gmail.com",
+  /**
+   * Shown in the Get in touch dialog. Leave both empty and the phone row is
+   * simply not rendered, rather than showing a placeholder.
+   */
+  phone: "",
+  phoneDisplay: "",
   github: "https://github.com/aviakon",
   githubHandle: "aviakon",
   location: "Israel",

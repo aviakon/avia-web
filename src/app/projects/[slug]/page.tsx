@@ -248,7 +248,11 @@ export default async function ProjectPage({
             </Reveal>
           )}
 
-          <div className="grid gap-4 sm:grid-cols-2">
+          <div
+            className={`grid gap-4 sm:grid-cols-2 ${
+              project.galleryColumns === 3 ? "lg:grid-cols-3" : ""
+            }`}
+          >
             {project.gallery.map((item, itemIndex) => (
               <Reveal
                 key={item.src}
@@ -264,7 +268,13 @@ export default async function ProjectPage({
                     src={item.src}
                     alt={item.alt}
                     fill
-                    sizes={item.wide ? "(max-width: 1024px) 100vw, 960px" : "(max-width: 640px) 100vw, 50vw"}
+                    sizes={
+                      item.wide
+                        ? "(max-width: 1024px) 100vw, 960px"
+                        : project.galleryColumns === 3
+                          ? "(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                          : "(max-width: 640px) 100vw, 50vw"
+                    }
                     className="object-cover"
                   />
                 </div>
