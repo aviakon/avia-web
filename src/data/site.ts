@@ -1,8 +1,17 @@
+/**
+ * The headline is authored as the two lines it should break into, so the shape
+ * of it is a decision rather than an accident of the container width.
+ */
+export const headlineLines = [
+  "Products that think, speak,",
+  "and sell themselves.",
+] as const;
+
 export const site = {
   name: "Avia Konfino",
   initials: "AK",
   role: "AI Product Engineer",
-  headline: "Products that think, speak, and sell themselves.",
+  headline: headlineLines.join(" "),
   subline:
     "Voice agents that answer a real phone line. Automations that run a business while nobody is watching. Cinematic ad creative generated end to end. Five products shipped, three of them live in production.",
   shortBio:
