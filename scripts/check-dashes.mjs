@@ -27,11 +27,9 @@ let found = 0;
 
 for (const route of routes) {
   await page.goto(base + route, { waitUntil: "networkidle" });
-  // The hero terminal types itself out over roughly nine seconds, so a short
-  // wait can miss a line that has not been written yet.
-  await page.waitForTimeout(route === "/" ? 14000 : 800);
+  await page.waitForTimeout(800);
 
-  const hits = await page.evaluate(() => {
+  const scan = () => page.evaluate(() => {
     const pattern = /[-‐-―−]/;
     const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
     const out = [];
@@ -48,6 +46,17 @@ for (const route of routes) {
     }
     return out;
   });
+
+  // The hero terminal types itself out and loops, so a single sample can miss a
+  // line that has not been written yet. Sample across a full cycle and take the
+  // union of everything seen.
+  const hits = new Set(await scan());
+  if (route === "/") {
+    for (let i = 0; i < 16; i += 1) {
+      await page.waitForTimeout(1000);
+      for (const hit of await scan()) hits.add(hit);
+    }
+  }
 
   const titleHit = DASH.test(await page.title()) ? [`<title> ${await page.title()}`] : [];
   const all = [...titleHit, ...hits];

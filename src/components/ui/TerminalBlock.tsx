@@ -4,34 +4,36 @@ import { useEffect, useRef, useState } from "react";
 import { useReducedMotion } from "motion/react";
 
 type Line = {
-  kind: "prompt" | "tool" | "note" | "done";
+  kind: "prompt" | "item" | "done";
+  /** Fixed width column on the left, printed as soon as the line starts. */
+  label?: string;
   text: string;
 };
 
 const SCRIPT: Line[] = [
-  { kind: "prompt", text: "give the agent a real phone number" },
-  { kind: "tool", text: "Read  lib/contact.ts" },
-  { kind: "tool", text: "Write app/api/twilio/voice/route.ts" },
-  { kind: "tool", text: "Bash  npm run provision:agent" },
-  { kind: "note", text: "registered 5 webhook tools · knowledge base synced" },
-  { kind: "done", text: "+972 53 388 3184 answers, takes orders, books meetings" },
+  { kind: "prompt", text: "what do you actually build?" },
+  { kind: "item", label: "vibe coding", text: "five products, shipped end to end" },
+  { kind: "item", label: "automations", text: "eleven flows running a live business" },
+  { kind: "item", label: "voice agents", text: "one real phone number, real orders" },
+  { kind: "item", label: "ai video", text: "a commercial generated start to finish" },
+  { kind: "item", label: "marketing", text: "content and bots for a real storefront" },
+  { kind: "done", text: "all of it built with Claude Code" },
 ];
 
-const TYPE_MS = 22;
-const LINE_PAUSE_MS = 340;
-const LOOP_PAUSE_MS = 4200;
+const TYPE_MS = 17;
+const LINE_PAUSE_MS = 260;
+const LOOP_PAUSE_MS = 4600;
 
 const STYLES: Record<Line["kind"], string> = {
   prompt: "text-ink",
-  tool: "text-ink-dim",
-  note: "text-ink-muted",
+  item: "text-ink-dim",
   done: "text-accent",
 };
 
 /**
- * A stylised Claude Code session that types itself out and loops. Purely
- * decorative — it carries aria-hidden and collapses to a static transcript
- * when reduced motion is requested.
+ * A stylised Claude Code session that answers the one question a recruiter is
+ * actually asking, and loops. Purely decorative: it carries aria-hidden, and
+ * the same content is present as real copy elsewhere on the page.
  */
 export function TerminalBlock() {
   const reduced = useReducedMotion();
@@ -73,11 +75,11 @@ export function TerminalBlock() {
         <span className="bg-hairline-strong size-2.5 rounded-full" />
         <span className="bg-hairline-strong size-2.5 rounded-full" />
         <span className="text-ink-muted ml-2 font-mono text-[11px] tracking-wider">
-          claude code · automa
+          claude code · avia
         </span>
       </div>
 
-      <div className="min-h-[248px] space-y-2 p-4 font-mono text-[12.5px] leading-relaxed sm:min-h-[228px] sm:text-[13px]">
+      <div className="min-h-[276px] space-y-2 p-4 font-mono text-[12px] leading-relaxed sm:text-[12.5px]">
         {visible.map((line, index) => {
           const isCurrent = !reduced && index === lineIndex;
           const text = isCurrent ? line.text.slice(0, charCount) : line.text;
@@ -85,16 +87,15 @@ export function TerminalBlock() {
           return (
             <div key={`${line.text}-${index}`} className="flex gap-2.5">
               <span
-                className={
-                  line.kind === "prompt"
-                    ? "text-accent shrink-0"
-                    : line.kind === "done"
-                      ? "text-accent shrink-0"
-                      : "text-ink-muted shrink-0"
-                }
+                className={`shrink-0 ${line.kind === "item" ? "text-ink-muted" : "text-accent"}`}
               >
                 {line.kind === "prompt" ? ">" : line.kind === "done" ? "✓" : "·"}
               </span>
+
+              {line.label && (
+                <span className="text-accent w-[104px] shrink-0">{line.label}</span>
+              )}
+
               <span className={`${STYLES[line.kind]} break-words`}>
                 {text}
                 {isCurrent && (
