@@ -43,3 +43,5 @@ next-env.d.ts
 # Raw screenshot candidates — only the chosen, cropped finals in
 # public/screenshots are published.
 /public/screenshots/candidates/
+
+.vercel
