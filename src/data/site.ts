@@ -19,10 +19,12 @@ export const site = {
   email: "avia.konfino@gmail.com",
   /**
    * Shown in the Get in touch dialog. Leave both empty and the phone row is
-   * simply not rendered, rather than showing a placeholder.
+   * simply not rendered, rather than showing a placeholder. The dialled number
+   * carries the country code so the link works from outside Israel too, while
+   * the display keeps the local form.
    */
-  phone: "",
-  phoneDisplay: "",
+  phone: "+972533311184",
+  phoneDisplay: "053 331 1184",
   github: "https://github.com/aviakon",
   githubHandle: "aviakon",
   location: "Israel",

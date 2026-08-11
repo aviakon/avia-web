@@ -48,7 +48,7 @@ export function ContactDialog() {
             label: "Phone",
             value: site.phoneDisplay,
             href: `tel:${site.phone}`,
-            copy: site.phone,
+            copy: site.phoneDisplay,
           },
         ]
       : []),
