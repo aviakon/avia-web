@@ -14,11 +14,11 @@ const principles = [
   },
   {
     title: "It has to work without the API key",
-    body: "Two of these projects run fully offline on heuristics and upgrade themselves the moment a key appears. An AI feature that hard-fails without a network is not a feature.",
+    body: "Two of these projects run fully offline on heuristics and upgrade themselves the moment a key appears. An AI feature that collapses without a network is not a feature.",
   },
   {
     title: "Privacy is an architecture, not a policy page",
-    body: "Local-only storage, pattern redaction before anything is written, hashed analytics with a salt that rotates nightly. Decisions made in the code, not in a disclaimer.",
+    body: "Storage that stays local, redaction by pattern before anything is written, analytics hashed with a salt that rotates nightly. Decisions made in the code, not in a disclaimer.",
   },
 ];
 
@@ -53,10 +53,10 @@ export function About() {
               <p className="text-ink-dim mt-4 text-[15px] leading-relaxed">
                 The work spans a voice agent that answers a real phone number and
                 sells a physical product, a vision model that counts poker chips
-                from a photograph, a job-matching platform reading six live
+                from a photograph, a job matching platform reading six live
                 sources in two languages, an Instagram automation running a real
-                storefront, and a desktop agent written with no dependencies at
-                all. Different stacks, one habit: take it all the way to
+                storefront, and a desktop agent built straight onto the Windows
+                system layer. Different stacks, one habit: take it all the way to
                 production.
               </p>
             </Reveal>

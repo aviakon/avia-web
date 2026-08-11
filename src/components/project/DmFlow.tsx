@@ -25,7 +25,7 @@ export function DmFlow({ compact = false }: { compact?: boolean }) {
             Comment on the post
           </p>
           <p className="text-ink mt-1.5 text-sm">
-            <span className="text-ink-dim">@dana_l</span> — I want it! <b>PRICE</b>
+            <span className="text-ink-dim">@dana_l</span> · I want it! <b>PRICE</b>
           </p>
         </div>
 
@@ -48,7 +48,7 @@ export function DmFlow({ compact = false }: { compact?: boolean }) {
             Direct message · sent
           </p>
           <p className="text-ink mt-1.5 text-sm leading-relaxed">
-            Here is your 15% code — <b>DANA15</b> — and the link to the piece 💎
+            Here is your 15% code, <b>DANA15</b>, and the link to the piece 💎
           </p>
         </div>
 

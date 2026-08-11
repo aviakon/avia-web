@@ -95,7 +95,7 @@ export function Projects() {
               </span>
             </>
           }
-          blurb="Each one covers the whole distance — product, interface, the AI underneath, the automations that keep it running, and the marketing that sells it."
+          blurb="Each one covers the whole distance: the product, the interface, the AI underneath, the automations that keep it running, and the marketing that sells it."
         />
 
         <div className="mt-14 space-y-4">

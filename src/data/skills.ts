@@ -3,7 +3,7 @@ export type SkillGroup = {
   title: string;
   blurb: string;
   items: string[];
-  /** Where this capability is demonstrated — links to a case study slug. */
+  /** Where this capability is demonstrated, linking to a case study. */
   evidence: { label: string; slug: string }[];
 };
 
@@ -12,54 +12,54 @@ export const skillGroups: SkillGroup[] = [
     id: "agents",
     title: "AI Agents",
     blurb:
-      "Conversational agents that do real work — not chatbots that answer questions, but agents with tools that write to production systems.",
+      "Conversational agents that do real work. Not chatbots that answer questions, but agents with tools that write to production systems.",
     items: [
       "ElevenLabs Conversational AI",
-      "Claude API / tool use",
+      "Claude API and tool use",
       "Gemini vision",
       "Webhook tool design",
-      "Knowledge-base grounding",
-      "Voice + text + telephony",
+      "Knowledge base grounding",
+      "Voice, text and telephony",
     ],
     evidence: [
-      { label: "AUTOMA voice agent", slug: "automa" },
-      { label: "Work-Continuity Agent", slug: "work-continuity-agent" },
+      { label: "The AUTOMA voice agent", slug: "automa" },
+      { label: "Work Continuity Agent", slug: "work-continuity-agent" },
     ],
   },
   {
     id: "automation",
-    title: "Automation & Integrations",
+    title: "Automation and Integrations",
     blurb:
-      "The unglamorous machinery that makes a product a business: orders, stock, alerts, follow-ups, and escalation paths that fire without anyone pressing a button.",
+      "The unglamorous machinery that makes a product a business: orders, stock, alerts, follow ups, and escalation paths that fire without anyone pressing a button.",
     items: [
       "Airtable",
       "Twilio telephony",
       "Meta Graph API",
-      "Resend / SMTP",
-      "IMAP + Slack scanning",
+      "Resend and SMTP",
+      "IMAP and Slack scanning",
       "Webhook orchestration",
       "Scheduled digests",
     ],
     evidence: [
-      { label: "11 automations in AUTOMA", slug: "automa" },
-      { label: "Instagram DM engine", slug: "jewelry-ig-bot" },
+      { label: "Eleven automations in AUTOMA", slug: "automa" },
+      { label: "The Instagram DM engine", slug: "jewelry-ig-bot" },
     ],
   },
   {
     id: "creative",
-    title: "AI Media & Marketing",
+    title: "AI Media and Marketing",
     blurb:
-      "Ad creative, product film, and marketing copy produced with generative tooling, then engineered into the page as performance-safe media.",
+      "Ad creative, product film, and marketing copy produced with generative tooling, then engineered into the page as media that never costs a visitor anything.",
     items: [
-      "AI-generated commercial video",
-      "Frame-sequence cinematics",
-      "Scroll-driven storytelling",
-      "Brand & landing copy",
+      "Commercial video generated with AI",
+      "Frame sequence cinematics",
+      "Storytelling driven by scroll",
+      "Brand and landing copy",
       "Conversion funnels",
-      "OG / social assets",
+      "Social and share assets",
     ],
     evidence: [
-      { label: "AUTOMA commercial", slug: "automa" },
+      { label: "The AUTOMA commercial", slug: "automa" },
       { label: "Jewelry brand content", slug: "jewelry-ig-bot" },
     ],
   },
@@ -67,18 +67,18 @@ export const skillGroups: SkillGroup[] = [
     id: "engineering",
     title: "Product Engineering",
     blurb:
-      "Full-stack delivery across web, backend, mobile and desktop — shipped, deployed, and tested rather than left in a repo.",
+      "Full stack delivery across web, backend, mobile and desktop. Shipped, deployed, and tested rather than left in a repository.",
     items: [
-      "Next.js / React / TypeScript",
+      "Next.js, React, TypeScript",
       "Tailwind CSS",
-      "FastAPI / Python",
-      "Firebase + Firestore",
-      "SwiftUI (iOS)",
-      "Win32 / ctypes",
-      "Playwright e2e",
+      "FastAPI and Python",
+      "Firebase and Firestore",
+      "SwiftUI for iOS",
+      "Windows system APIs",
+      "Playwright",
     ],
     evidence: [
-      { label: "JobScout platform", slug: "jobscout" },
+      { label: "The JobScout platform", slug: "jobscout" },
       { label: "Poker Splitter", slug: "poker-splitter" },
     ],
   },

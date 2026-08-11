@@ -12,9 +12,9 @@ const SCRIPT: Line[] = [
   { kind: "prompt", text: "give the agent a real phone number" },
   { kind: "tool", text: "Read  lib/contact.ts" },
   { kind: "tool", text: "Write app/api/twilio/voice/route.ts" },
-  { kind: "tool", text: "Bash  node scripts/provision-agent.mjs" },
+  { kind: "tool", text: "Bash  npm run provision:agent" },
   { kind: "note", text: "registered 5 webhook tools · knowledge base synced" },
-  { kind: "done", text: "+972 53-388-3184 answers, takes orders, books meetings" },
+  { kind: "done", text: "+972 53 388 3184 answers, takes orders, books meetings" },
 ];
 
 const TYPE_MS = 22;
@@ -73,7 +73,7 @@ export function TerminalBlock() {
         <span className="bg-hairline-strong size-2.5 rounded-full" />
         <span className="bg-hairline-strong size-2.5 rounded-full" />
         <span className="text-ink-muted ml-2 font-mono text-[11px] tracking-wider">
-          claude code — automa
+          claude code · automa
         </span>
       </div>
 

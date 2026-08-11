@@ -25,7 +25,7 @@ export function Contact() {
             <span className="font-display text-ink-muted italic">all of it?</span>
           </h2>
           <p className="text-ink-dim mx-auto mt-6 max-w-xl text-[15px] leading-relaxed">
-            I am open to roles and collaborations in AI product engineering —
+            I am open to roles and collaborations in AI product engineering:
             agents, automation, and the interfaces around them. The fastest way
             to reach me is email.
           </p>

@@ -5,6 +5,7 @@ import { notFound } from "next/navigation";
 import { projects, projectBySlug } from "@/data/projects";
 import { StatusPill } from "@/components/project/ProjectCard";
 import { DmFlow } from "@/components/project/DmFlow";
+import { LiveEmbed } from "@/components/project/LiveEmbed";
 import { VideoPlayer } from "@/components/project/VideoPlayer";
 import { Reveal } from "@/components/ui/Reveal";
 import { GradientGlow } from "@/components/ui/GradientGlow";
@@ -23,10 +24,10 @@ export async function generateMetadata({
   if (!project) return {};
 
   return {
-    title: `${project.name} — ${project.tagline}`,
+    title: `${project.name} · ${project.tagline}`,
     description: project.hook,
     openGraph: {
-      title: `${project.name} — ${project.tagline}`,
+      title: `${project.name} · ${project.tagline}`,
       description: project.hook,
       type: "article",
     },
@@ -112,20 +113,29 @@ export default async function ProjectPage({
       {/* ---- lead visual ----------------------------------------------- */}
       <div className="mx-auto max-w-5xl px-5 sm:px-8">
         <Reveal>
-          <div className="edge relative aspect-16/10 overflow-hidden rounded-2xl sm:aspect-video">
-            {project.illustration === "dm-flow" ? (
-              <DmFlow />
-            ) : project.cover ? (
-              <Image
-                src={project.cover}
-                alt={project.coverAlt}
-                fill
-                sizes="(max-width: 1024px) 100vw, 960px"
-                priority
-                className="object-cover"
-              />
-            ) : null}
-          </div>
+          {project.embed ? (
+            <LiveEmbed
+              url={project.embed.url}
+              label={project.embed.label}
+              note={project.embed.note}
+              accent={project.accent}
+            />
+          ) : (
+            <div className="edge relative aspect-16/10 overflow-hidden rounded-2xl sm:aspect-video">
+              {project.illustration === "dm-flow" ? (
+                <DmFlow />
+              ) : project.cover ? (
+                <Image
+                  src={project.cover}
+                  alt={project.coverAlt}
+                  fill
+                  sizes="(max-width: 1024px) 100vw, 960px"
+                  priority
+                  className="object-cover"
+                />
+              ) : null}
+            </div>
+          )}
         </Reveal>
       </div>
 
@@ -246,12 +256,15 @@ export default async function ProjectPage({
                 as="figure"
                 className={item.wide ? "sm:col-span-2" : undefined}
               >
-                <div className="edge relative aspect-16/10 overflow-hidden rounded-xl">
+                <div
+                  className="edge relative overflow-hidden rounded-xl"
+                  style={{ aspectRatio: item.ratio ?? "16 / 10" }}
+                >
                   <Image
                     src={item.src}
                     alt={item.alt}
                     fill
-                    sizes="(max-width: 640px) 100vw, 50vw"
+                    sizes={item.wide ? "(max-width: 1024px) 100vw, 960px" : "(max-width: 640px) 100vw, 50vw"}
                     className="object-cover"
                   />
                 </div>

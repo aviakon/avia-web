@@ -3,7 +3,7 @@ import { site } from "@/data/site";
 
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
-export const alt = `${site.name} — ${site.role}`;
+export const alt = `${site.name} · ${site.role}`;
 
 export default function OpenGraphImage() {
   return new ImageResponse(
@@ -65,7 +65,7 @@ export default function OpenGraphImage() {
         </div>
 
         <div style={{ display: "flex", gap: 12 }}>
-          {["AUTOMA", "Poker Splitter", "JobScout", "Jewelry DM Engine", "Work-Continuity Agent"].map(
+          {["AUTOMA", "Poker Splitter", "JobScout", "Jewelry DM Engine", "Work Continuity Agent"].map(
             (name) => (
               <span
                 key={name}

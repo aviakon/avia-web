@@ -33,7 +33,7 @@ export function Navbar() {
         <Link
           href="/"
           className="group flex items-center gap-2.5"
-          aria-label={`${site.name} — home`}
+          aria-label={`${site.name}, home`}
         >
           <span className="border-hairline text-accent group-hover:border-accent/60 flex size-8 items-center justify-center rounded-md border font-mono text-[13px] tracking-tight transition-colors">
             {site.initials}
