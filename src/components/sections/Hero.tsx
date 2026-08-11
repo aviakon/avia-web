@@ -38,20 +38,27 @@ export function Hero() {
           </motion.p>
 
           <h1 className="font-display text-[clamp(2.6rem,7vw,4.6rem)] leading-[1.02] tracking-tight">
+            {/*
+              Each word animates in on its own, but the space between them is a
+              real text node rather than a margin. Otherwise the heading's text
+              content runs together, and screen readers, copied text and search
+              engines all see one unbroken string.
+            */}
             {WORDS.map((word, index) => (
-              <motion.span
-                key={`${word}-${index}`}
-                initial={reduced ? false : { opacity: 0, y: 26 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{
-                  duration: 0.75,
-                  delay: 0.1 + index * 0.055,
-                  ease: [0.16, 1, 0.3, 1],
-                }}
-                className="mr-[0.28em] inline-block"
-              >
-                {word}
-              </motion.span>
+              <span key={`${word}-${index}`}>
+                <motion.span
+                  initial={reduced ? false : { opacity: 0, y: 26 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{
+                    duration: 0.75,
+                    delay: 0.1 + index * 0.055,
+                    ease: [0.16, 1, 0.3, 1],
+                  }}
+                  className="inline-block"
+                >
+                  {word}
+                </motion.span>{" "}
+              </span>
             ))}
           </h1>
 
