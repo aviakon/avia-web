@@ -30,7 +30,7 @@ function Flagship() {
             ) : (
               <ProjectVisual project={project} priority sizes="(max-width: 1024px) 100vw, 55vw" />
             )}
-            <span className="bg-void/70 text-ink absolute top-4 left-4 rounded-full px-3 py-1.5 font-mono text-[10.5px] tracking-widest uppercase backdrop-blur-sm">
+            <span className="bg-void/70 text-ink absolute top-4 left-4 rounded-full px-3 py-1.5 font-mono text-[12px] tracking-widest uppercase backdrop-blur-sm">
               Flagship
             </span>
           </div>
@@ -60,7 +60,7 @@ function Flagship() {
                     <span className="block text-xl font-semibold tracking-tight">
                       {metric.value}
                     </span>
-                    <span className="text-ink-muted mt-0.5 block text-[11px] leading-tight">
+                    <span className="text-ink-muted mt-0.5 block text-[12px] leading-tight">
                       {metric.label}
                     </span>
                   </dd>

@@ -58,14 +58,14 @@ export function LiveEmbed({ url, label, note, accent }: LiveEmbedProps) {
           <span className="bg-hairline-strong size-2.5 rounded-full" />
           <span className="bg-hairline-strong size-2.5 rounded-full" />
           <span className="bg-hairline-strong size-2.5 rounded-full" />
-          <span className="bg-canvas/70 text-ink-muted ml-3 flex-1 truncate rounded px-3 py-1 text-center font-mono text-[11px]">
+          <span className="bg-canvas/70 text-ink-muted ml-3 flex-1 truncate rounded px-3 py-1 text-center font-mono text-[12px]">
             {label}
           </span>
           <a
             href={url}
             target="_blank"
             rel="noreferrer"
-            className="text-ink-muted hover:text-accent shrink-0 font-mono text-[11px] transition-colors"
+            className="text-ink-muted hover:text-accent inline-flex min-h-11 shrink-0 items-center px-1 font-mono text-[12px] transition-colors"
           >
             open ↗
           </a>

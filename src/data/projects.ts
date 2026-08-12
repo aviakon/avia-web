@@ -46,6 +46,8 @@ export type Project = {
   embed?: { url: string; label: string; note: string };
   /** A line under the lead cover image, for projects with only one screenshot. */
   coverCaption?: string;
+  /** The cover's own aspect ratio, so its frame matches the file exactly. */
+  coverRatio?: string;
   /**
    * Show the gallery itself as the lead visual, for a product whose story is a
    * sequence of screens rather than one page. The gallery is not repeated
@@ -92,35 +94,35 @@ export const projects: Project[] = [
     features: [
       {
         title: "A cinematic hero driven by scroll",
-        body: "A sequence of 278 images painted to a canvas scaled for the display's pixel density, scrubbed by scroll position, with prioritised concurrent preloading so the first frame is instant and the rest stream in behind it.",
+        body: "278 frames painted to a canvas and scrubbed by scroll, preloaded so the first frame is instant.",
       },
       {
         title: "A voice sales agent on web and phone",
-        body: "An ElevenLabs conversational agent embedded in the page with a live transcript, and the same agent wired to a Twilio number so a customer can simply call and buy.",
+        body: "One ElevenLabs agent, embedded in the page and wired to a Twilio number. Same agent either way.",
       },
       {
         title: "Agent tools that write to production",
-        body: "Five secured webhook endpoints: live stock for each warehouse phrased for speech, real order placement with stock deduction and deduplication, meeting booking that emails a calendar invite, lead capture, and a queue for human callbacks.",
+        body: "Five secured webhooks: live stock, real orders, meeting booking with a calendar invite, leads, callbacks.",
       },
       {
         title: "Eleven operational automations",
-        body: "Order confirmation, shipped and delivered mail carrying a setup guide, a follow up after three days, a referral welcome gift and a reward for the referrer, alerts to the team on every new order, daily reminders about stale orders and leads, automatic stock deduction with warehouse relocation and compensation, alerts when stock runs low or critical, and a weekly inventory digest.",
+        body: "Confirmations, shipping mail, follow ups, referral rewards, stock deduction, low stock alerts, a weekly digest.",
       },
       {
         title: "Agent provisioning in one command",
-        body: "An idempotent script that creates the API secret, uploads the knowledge base, registers every webhook tool and builds the agent itself, so the whole voice stack can be rebuilt from scratch in a single command.",
+        body: "An idempotent script rebuilds the secret, knowledge base, every tool and the agent itself from scratch.",
       },
       {
         title: "A commercial generated with AI",
-        body: "A full product film produced with generative video tooling, embedded as a section that plays itself the moment it enters view, with a fallback for anyone who prefers reduced motion.",
+        body: "A full product film, embedded to play the moment it enters view, with a reduced motion fallback.",
       },
       {
         title: "Airtable as the operations console",
-        body: "Orders, leads and inventory for each warehouse live in an Airtable base whose stage automations fire webhooks back into the app, so the side of the business that does not write code runs from a spreadsheet view.",
+        body: "Orders, leads and stock live in Airtable, whose automations fire webhooks back into the app.",
       },
       {
         title: "Tested and instrumented",
-        body: "Playwright specs covering the whole journey including a live order run, Open Graph imagery generated at the edge, sitemap and robots routes, and Search Console verification.",
+        body: "Playwright specs including a live order run, plus edge generated social images, sitemap and robots.",
       },
     ],
     architecture: [
@@ -208,35 +210,35 @@ export const projects: Project[] = [
     features: [
       {
         title: "A camera that counts chips",
-        body: "Point a phone at the chips and a Gemini vision model counts them, reasoning step by step over the stack edge lines and checking itself against the room's chip denominations before returning a total.",
+        body: "A Gemini vision model reads the stack edge lines and checks itself against the room's denominations.",
       },
       {
         title: "Settlement in the fewest transfers",
-        body: "A greedy debt simplification reduces a table of winners and losers to the smallest possible set of payments, implemented as a pure, testable function.",
+        body: "Greedy debt simplification reduces the table to the smallest set of payments. A pure, testable function.",
       },
       {
         title: "A live table from your own seat",
-        body: "The felt renders from each player's own point of view, with their seat always at the bottom, and updates in realtime through Firestore as buy ins and rebuys land.",
+        body: "The felt rotates so you are always at the bottom, and updates through Firestore as buy ins land.",
       },
       {
         title: "Join by QR, even mid game",
-        body: "A six character room code and a QR invite. Latecomers can join a game already in progress, and players can rebuy themselves without bothering the host.",
+        body: "A six character code and a QR invite. Latecomers join in progress and rebuy without asking the host.",
       },
       {
         title: "End game entry that always reconciles",
-        body: "Final amounts are editable and the last player's total is calculated from the pot, so the numbers can never fail to add up.",
+        body: "The last player's total is calculated from the pot, so the numbers can never fail to add up.",
       },
       {
         title: "A settlement card worth sharing",
-        body: "The result is rendered as a shareable card with the game image and stats, complete with a confetti finish.",
+        body: "The result renders as a shareable card with the game image and stats, and a confetti finish.",
       },
       {
         title: "A native iOS twin",
-        body: "A parallel SwiftUI application: twenty five Swift files across seven screens, built on iOS 17 observation and NavigationStack.",
+        body: "A parallel SwiftUI app: twenty five files across seven screens, on iOS 17 observation and NavigationStack.",
       },
       {
         title: "Chips drawn, not photographed",
-        body: "Poker chips, stacks and a denomination picker drawn as components, plus twelve preset avatars with duplicate prevention for players who would rather not upload a photo.",
+        body: "Chips, stacks and the denomination picker drawn as components, plus twelve preset avatars.",
       },
     ],
     architecture: [
@@ -318,39 +320,39 @@ export const projects: Project[] = [
     features: [
       {
         title: "Resume parsing, photographs included",
-        body: "PDF and Word documents are parsed directly. A photographed resume is read with offline Windows OCR and Claude vision, then extracted into a structured candidate profile.",
+        body: "PDF and Word parsed directly. A photo of a resume is read by Windows OCR and Claude vision.",
       },
       {
         title: "A score from 0 to 100, explained",
-        body: "Every posting is scored by Claude with a written rationale: why the candidate fits, and precisely which requirements they are missing.",
+        body: "Claude scores every posting with a written rationale: why you fit, and what you are missing.",
       },
       {
         title: "Six sources, thousands of postings",
-        body: "Greenhouse, Lever, Ashby, Comeet and SmartRecruiters public APIs surface roles direct from company boards, while a Google for Jobs aggregator reaches LinkedIn, Indeed, AllJobs and Drushim without scraping them.",
+        body: "Five ATS APIs read company boards direct, and an aggregator reaches LinkedIn and Indeed without scraping.",
       },
       {
         title: "Works with no API key at all",
-        body: "The whole platform runs offline on a bilingual parser and scorer built from heuristics, and silently upgrades itself to Claude the moment an API key appears in the environment.",
+        body: "Runs offline on a bilingual heuristic scorer, and upgrades itself to Claude the moment a key appears.",
       },
       {
         title: "A matching engine in two languages",
-        body: "A dedicated bilingual layer handles role titles, seniority and prefiltering across Hebrew and English, with an interface that lays out right to left.",
+        body: "Role titles, seniority and prefiltering across Hebrew and English, in an interface that lays out right to left.",
       },
       {
         title: "Skill gauges you can turn",
-        body: "Click a skill and set your years of experience on a circular gauge. The next search reweights its ranking accordingly.",
+        body: "Set your years on a skill and the next search reweights its ranking accordingly.",
       },
       {
         title: "Cover letters and tailoring advice",
-        body: "A generated cover letter in the language of each posting, plus specific advice on how to adjust the resume for that particular role.",
+        body: "A cover letter in each posting's own language, plus what to change on the resume for that role.",
       },
       {
         title: "Monetisation, built in honestly",
-        body: "A self serve sponsored ads system with click and impression statistics and a public page for advertisers, designed so a paid slot can never masquerade as a ranked match.",
+        body: "Self serve sponsored slots with click statistics, designed so a paid slot can never pass as a ranked match.",
       },
       {
         title: "Analytics that collect nothing",
-        body: "No third party tracker, no cookies and no stored IP addresses. Visitors are hashed with a salt that rotates at midnight, candidate pages use unguessable tokens instead of accounts, and the expensive endpoints are rate limited by IP.",
+        body: "No tracker, no cookies, no stored IPs. Visitors hashed with a salt that rotates at midnight.",
       },
     ],
     architecture: [
@@ -400,7 +402,7 @@ export const projects: Project[] = [
         caption:
           "Every match ranked and scored, with the reasoning shown rather than hidden behind the number.",
         wide: true,
-        ratio: "1724 / 1414",
+        ratio: "1600 / 1312",
       },
     ],
     accent: "#a78bfa",
@@ -428,35 +430,35 @@ export const projects: Project[] = [
     features: [
       {
         title: "Comment to DM in seconds",
-        body: "A Meta webhook fires the moment a comment lands. The bot sends a private reply with the offer and posts a short public acknowledgement under the comment.",
+        body: "A webhook fires the moment a comment lands. A private message goes out, and a short public reply follows.",
       },
       {
         title: "The owner edits the campaign, not the code",
-        body: "Keywords, message copy and public replies all live in a JSON rules file that reloads live, so the shop owner changes a campaign without a developer and without a redeploy.",
+        body: "Keywords and copy live in a JSON file that reloads live. No developer, no redeploy.",
       },
       {
         title: "Matching on word boundaries, in two languages",
-        body: "Hebrew and English triggers tokenised on word boundaries, after an early version proved that naive substring matching fires on the wrong comments.",
+        body: "Hebrew and English triggers tokenised properly, after substring matching proved to fire on the wrong comments.",
       },
       {
         title: "Signed webhooks",
-        body: "Every incoming request is verified against Meta's signature using a captured raw body, so nothing but Instagram can drive the bot.",
+        body: "Every request is verified against Meta's signature, so nothing but Instagram can drive the bot.",
       },
       {
         title: "Nobody is ever messaged twice",
-        body: "A deduplication layer tracks handled comments, which matters more than it sounds when Meta redelivers webhooks.",
+        body: "A deduplication layer tracks handled comments, which matters when Meta redelivers webhooks.",
       },
       {
         title: "Authentication that heals itself",
-        body: "Tokens are refreshed automatically before their sixty day expiry and persisted to disk, so a restart or a redeploy never drops the integration.",
+        body: "Tokens refresh before their sixty day expiry and persist to disk, so a restart never drops the integration.",
       },
       {
         title: "Passed Meta App Review",
-        body: "Including the public privacy policy page the platform requires, served by the bot itself, plus a 7,000 word setup guide written so somebody who does not write code could complete the Meta app configuration.",
+        body: "Including the privacy policy page the platform requires, and a setup guide a non developer could follow.",
       },
       {
         title: "Free to run, always awake",
-        body: "Deployed on a free tier with an external pinger defeating idle sleep, so the whole system costs nothing to operate.",
+        body: "A free tier plus an external pinger defeating idle sleep. The whole system costs nothing to operate.",
       },
     ],
     architecture: [
@@ -514,35 +516,35 @@ export const projects: Project[] = [
     features: [
       {
         title: "Briefings after an interruption",
-        body: "When you return from being pulled away, a short briefing reconstructs what you were doing, what you had open, and what you had just been about to do.",
+        body: "Come back and a short briefing reconstructs what you were doing and what you were about to do.",
       },
       {
         title: "Open loops, tracked until they close",
-        body: "Commitments are extracted from notes, from sent mail scanned over IMAP, and from Slack messages, then followed until they are actually closed.",
+        body: "Commitments pulled from notes, sent mail and Slack, then followed until they actually close.",
       },
       {
         title: "Capture from anywhere with a hotkey",
-        body: "Ctrl+Alt+Space from inside any application snapshots the current state and prompts for a one line note. If the note reads like a promise, it becomes a tracked open loop.",
+        body: "Ctrl+Alt+Space snapshots the state and takes a note. If it reads like a promise, it becomes an open loop.",
       },
       {
         title: "Privacy as an architectural choice",
-        body: "Local only, no server, no sync, no telemetry. API keys, email addresses and card numbers are redacted by pattern before anything is written to disk or sent to a model. Forgetting everything means deleting one folder.",
+        body: "Local only, no server or telemetry. Keys and personal data redacted before anything touches disk.",
       },
       {
         title: "Built on the Windows system layer",
-        body: "Window enumeration, idle detection, the system tray icon, the message pump, COM based UI automation for browser tabs and the Claude client are all built directly against the platform, so the agent runs as one small process with nothing else to install.",
+        body: "Windows, idle state, tray icon and tab reading built straight against the platform. One small process.",
       },
       {
         title: "Tab reading that cannot take it down",
-        body: "Browser tab titles are read through UI Automation in an isolated subprocess, so a COM failure can never crash the agent, with an optional DevTools path for titles plus URLs.",
+        body: "Tab titles are read in an isolated subprocess, so a COM failure can never crash the agent.",
       },
       {
         title: "Works offline, upgrades silently",
-        body: "Briefings and digests are generated from heuristics with no API key present, and switch to Claude the moment one is configured, picked up live and without a restart.",
+        body: "Heuristics with no key present, switching to Claude the moment one is configured. No restart.",
       },
       {
         title: "A daily digest and a weekly mirror",
-        body: "A summary of what is done, open and blocked at the end of each day, and a weekly view showing where the time actually went.",
+        body: "Done, open and blocked at the end of each day, and a weekly view of where the time went.",
       },
     ],
     architecture: [
@@ -572,6 +574,7 @@ export const projects: Project[] = [
     links: [],
     cover: "/screenshots/wca-report.webp",
     coverAlt: "The Work Continuity Agent report, with open loops and generated briefings",
+    coverRatio: "1600 / 1045",
     coverCaption:
       "The local report from a real session: snapshot counts, a tracked open loop, and the digest it wrote at the end of the day. Generated on the machine, never uploaded.",
     // The cover image above is the only screenshot this project has, and it is

@@ -6,7 +6,7 @@ import { ProjectVisual } from "./ProjectVisual";
 export function StatusPill({ status }: { status: Project["status"] }) {
   const live = status === "Live in production";
   return (
-    <span className="text-ink-muted inline-flex items-center gap-1.5 font-mono text-[10.5px] tracking-widest uppercase">
+    <span className="text-ink-muted inline-flex items-center gap-1.5 font-mono text-[12px] tracking-widest uppercase">
       <span
         className={`size-1.5 rounded-full ${live ? "bg-accent animate-pulse" : "bg-ink-muted"}`}
       />
@@ -41,7 +41,7 @@ export function ProjectCard({ project }: { project: Project }) {
             </span>
           </div>
 
-          <p className="text-ink-muted mt-1 font-mono text-[11px] tracking-wide">
+          <p className="text-ink-muted mt-1 font-mono text-[12px] tracking-wide">
             {project.category}
           </p>
 
@@ -51,7 +51,7 @@ export function ProjectCard({ project }: { project: Project }) {
 
           <div className="border-hairline mt-6 flex items-center justify-between border-t pt-4">
             <StatusPill status={project.status} />
-            <span className="text-ink-muted font-mono text-[11px]">{project.year}</span>
+            <span className="text-ink-muted font-mono text-[12px]">{project.year}</span>
           </div>
         </div>
       </Link>

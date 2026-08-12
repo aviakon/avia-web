@@ -15,13 +15,13 @@ export function DmFlow({ compact = false }: { compact?: boolean }) {
       <div
         className={`w-full space-y-2.5 ${compact ? "max-w-[300px]" : "max-w-[380px]"}`}
       >
-        <p className="text-ink-muted mb-3 text-center font-mono text-[10px] tracking-[0.18em] uppercase">
+        <p className="text-ink-muted mb-3 text-center font-mono text-[12px] tracking-[0.18em] uppercase">
           Illustration
         </p>
 
         {/* The public comment that triggers everything. */}
         <div className="edge bg-surface/80 rounded-xl p-3.5 backdrop-blur-sm">
-          <p className="text-ink-muted font-mono text-[9.5px] tracking-widest uppercase">
+          <p className="text-ink-muted font-mono text-[12px] tracking-widest uppercase">
             Comment on the post
           </p>
           <p className="text-ink mt-1.5 text-sm">
@@ -31,7 +31,7 @@ export function DmFlow({ compact = false }: { compact?: boolean }) {
 
         <div className="flex items-center gap-2 pl-4">
           <span className="bg-hairline-strong h-6 w-px" />
-          <span className="text-ink-muted font-mono text-[10px]">
+          <span className="text-ink-muted font-mono text-[12px]">
             keyword matched · 1.2s
           </span>
         </div>
@@ -44,7 +44,7 @@ export function DmFlow({ compact = false }: { compact?: boolean }) {
             background: "color-mix(in oklab, #f9a8d4 8%, #12121a)",
           }}
         >
-          <p className="font-mono text-[9.5px] tracking-widest uppercase" style={{ color: "#f9a8d4" }}>
+          <p className="font-mono text-[12px] tracking-widest uppercase" style={{ color: "#f9a8d4" }}>
             Direct message · sent
           </p>
           <p className="text-ink mt-1.5 text-sm leading-relaxed">
@@ -54,7 +54,7 @@ export function DmFlow({ compact = false }: { compact?: boolean }) {
 
         {!compact && (
           <div className="edge bg-surface/60 rounded-xl p-3.5">
-            <p className="text-ink-muted font-mono text-[9.5px] tracking-widest uppercase">
+            <p className="text-ink-muted font-mono text-[12px] tracking-widest uppercase">
               Public reply
             </p>
             <p className="text-ink-dim mt-1.5 text-sm" dir="rtl">

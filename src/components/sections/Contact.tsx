@@ -17,7 +17,7 @@ export function Contact() {
 
       <div className="relative mx-auto max-w-3xl px-5 text-center sm:px-8">
         <Reveal>
-          <p className="text-accent mb-5 font-mono text-[11px] tracking-[0.2em] uppercase">
+          <p className="text-accent mb-5 font-mono text-[12px] tracking-[0.2em] uppercase">
             Contact
           </p>
           <h2 className="font-display text-[clamp(2.2rem,5.5vw,3.6rem)] leading-[1.05] tracking-tight">
@@ -38,12 +38,11 @@ export function Contact() {
               {site.email}
             </a>
             <a
-              href={site.github}
-              target="_blank"
-              rel="noreferrer"
+              href={`tel:${site.phone}`}
               className="edge bg-surface hover:border-accent/50 hover:text-accent inline-flex items-center gap-2 rounded-md px-6 py-3.5 text-sm font-medium transition-colors"
+              dir="ltr"
             >
-              GitHub <span aria-hidden>↗</span>
+              {site.phoneDisplay}
             </a>
           </div>
         </Reveal>

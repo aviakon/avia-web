@@ -15,7 +15,7 @@ export const site = {
   subline:
     "Voice agents that answer a real phone line. Automations that run a business while nobody is watching. Cinematic ad creative generated end to end. Five products shipped, three of them live in production.",
   shortBio:
-    "I design and ship complete AI products: the interface, the agent behind it, the automations that keep it running, and the marketing that sells it. Most of it is built with Claude Code as my development environment, which is how one person covers that much surface area.",
+    "I design and ship complete AI products: the interface, the agent behind it, the automations that keep it running, and the marketing that sells it. Heavy use of AI tooling is how one person covers that much surface area.",
   email: "avia.konfino@gmail.com",
   /**
    * Shown in the Get in touch dialog. Leave both empty and the phone row is

@@ -14,15 +14,15 @@ export function Footer() {
         </div>
 
         <nav aria-label="Case studies">
-          <p className="text-ink-muted mb-3 font-mono text-[11px] tracking-widest uppercase">
+          <p className="text-ink-muted mb-3 font-mono text-[12px] tracking-widest uppercase">
             Work
           </p>
-          <ul className="space-y-2">
+          <ul>
             {projects.map((project) => (
               <li key={project.slug}>
                 <Link
                   href={`/projects/${project.slug}`}
-                  className="text-ink-dim hover:text-accent text-sm transition-colors"
+                  className="text-ink-dim hover:text-accent flex min-h-11 items-center text-sm transition-colors"
                 >
                   {project.name}
                 </Link>
@@ -32,33 +32,32 @@ export function Footer() {
         </nav>
 
         <div>
-          <p className="text-ink-muted mb-3 font-mono text-[11px] tracking-widest uppercase">
-            Elsewhere
+          <p className="text-ink-muted mb-3 font-mono text-[12px] tracking-widest uppercase">
+            Contact
           </p>
-          <ul className="space-y-2">
+          <ul>
             <li>
               <a
                 href={`mailto:${site.email}`}
-                className="text-ink-dim hover:text-accent text-sm transition-colors"
+                className="text-ink-dim hover:text-accent flex min-h-11 items-center text-sm transition-colors"
               >
                 {site.email}
               </a>
             </li>
             <li>
               <a
-                href={site.github}
-                target="_blank"
-                rel="noreferrer"
-                className="text-ink-dim hover:text-accent text-sm transition-colors"
+                href={`tel:${site.phone}`}
+                className="text-ink-dim hover:text-accent flex min-h-11 items-center text-sm transition-colors"
+                dir="ltr"
               >
-                GitHub / {site.githubHandle}
+                {site.phoneDisplay}
               </a>
             </li>
           </ul>
         </div>
       </div>
 
-      <div className="border-hairline text-ink-muted mx-auto max-w-6xl border-t px-5 py-6 font-mono text-[11px] sm:px-8">
+      <div className="border-hairline text-ink-muted mx-auto max-w-6xl border-t px-5 py-6 font-mono text-[12px] sm:px-8">
         <span>
           © {new Date().getFullYear()} {site.name}
         </span>

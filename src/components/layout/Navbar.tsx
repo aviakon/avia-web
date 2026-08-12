@@ -33,7 +33,7 @@ export function Navbar() {
       <nav className="mx-auto flex max-w-6xl items-center justify-between px-5 py-4 sm:px-8">
         <Link
           href="/"
-          className="group flex items-center gap-2.5"
+          className="group -ml-2 flex min-h-11 items-center gap-2.5 px-2"
           aria-label={`${site.name}, home`}
         >
           <span className="border-hairline text-accent group-hover:border-accent/60 flex size-8 items-center justify-center rounded-md border font-mono text-[13px] tracking-tight transition-colors">

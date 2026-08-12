@@ -27,7 +27,7 @@ function CopyButton({ value }: { value: string }) {
           /* clipboard blocked; the link beside it still works */
         }
       }}
-      className="border-hairline text-ink-muted hover:border-accent/50 hover:text-accent shrink-0 rounded-md border px-2.5 py-1.5 font-mono text-[10.5px] tracking-wider uppercase transition-colors"
+      className="border-hairline text-ink-muted hover:border-accent/50 hover:text-accent shrink-0 rounded-md border px-2.5 py-1.5 font-mono text-[12px] tracking-wider uppercase transition-colors"
     >
       {copied ? "copied" : "copy"}
     </button>
@@ -89,7 +89,7 @@ export function ContactDialog() {
         onClick={() => setOpen(true)}
         aria-haspopup="dialog"
         aria-expanded={open}
-        className="edge bg-surface hover:border-accent/50 hover:text-accent rounded-md px-3.5 py-2 text-sm font-medium transition-colors"
+        className="edge bg-surface hover:border-accent/50 hover:text-accent min-h-11 rounded-md px-4 py-2.5 text-sm font-medium transition-colors"
       >
         Get in touch
       </button>
@@ -130,7 +130,7 @@ export function ContactDialog() {
                 ×
               </button>
 
-              <p className="text-accent font-mono text-[11px] tracking-[0.2em] uppercase">
+              <p className="text-accent font-mono text-[12px] tracking-[0.2em] uppercase">
                 Get in touch
               </p>
               <h2
@@ -150,7 +150,7 @@ export function ContactDialog() {
                     className="border-hairline bg-canvas/40 flex items-center gap-3 rounded-xl border p-4"
                   >
                     <div className="min-w-0 flex-1">
-                      <p className="text-ink-muted font-mono text-[10.5px] tracking-widest uppercase">
+                      <p className="text-ink-muted font-mono text-[12px] tracking-widest uppercase">
                         {row.label}
                       </p>
                       <a

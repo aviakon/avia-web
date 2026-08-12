@@ -22,7 +22,7 @@ export function SectionHeading({
 }: SectionHeadingProps) {
   return (
     <Reveal className={`${oneLine ? "max-w-4xl" : "max-w-2xl"} ${className}`}>
-      <p className="text-accent mb-4 flex items-center gap-3 font-mono text-[11px] tracking-[0.2em] uppercase">
+      <p className="text-accent mb-4 flex items-center gap-3 font-mono text-[12px] tracking-[0.2em] uppercase">
         <span className="bg-accent/40 h-px w-8" />
         {eyebrow}
       </p>

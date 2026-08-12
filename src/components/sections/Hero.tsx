@@ -33,7 +33,7 @@ export function Hero() {
           initial={reduced ? false : { opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-          className="text-ink-muted mb-7 flex items-center gap-2.5 font-mono text-[11px] tracking-[0.2em] uppercase"
+          className="text-ink-muted mb-7 flex items-center gap-2.5 font-mono text-[12px] tracking-[0.2em] uppercase"
         >
           <span className="bg-accent size-1.5 animate-pulse rounded-full" />
           {site.role} · {site.location}

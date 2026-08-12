@@ -5,7 +5,7 @@ import { notFound } from "next/navigation";
 import { projects, projectBySlug } from "@/data/projects";
 import { StatusPill } from "@/components/project/ProjectCard";
 import { DmFlow } from "@/components/project/DmFlow";
-import { GalleryGrid } from "@/components/project/GalleryGrid";
+import { GalleryGrid, intrinsic } from "@/components/project/GalleryGrid";
 import { LiveEmbed } from "@/components/project/LiveEmbed";
 import { VideoPlayer } from "@/components/project/VideoPlayer";
 import { Reveal } from "@/components/ui/Reveal";
@@ -71,17 +71,17 @@ export default async function ProjectPage({
         <div className="relative mx-auto max-w-5xl px-5 sm:px-8">
           <Link
             href="/#work"
-            className="text-ink-muted hover:text-accent mb-8 inline-flex items-center gap-2 text-sm transition-colors"
+            className="text-ink-muted hover:text-accent mb-6 -ml-2 inline-flex min-h-11 items-center gap-2 px-2 text-sm transition-colors"
           >
             <span aria-hidden>←</span> All work
           </Link>
 
           <div className="flex flex-wrap items-center gap-x-5 gap-y-2">
             <StatusPill status={project.status} />
-            <span className="text-ink-muted font-mono text-[11px] tracking-wide">
+            <span className="text-ink-muted font-mono text-[12px] tracking-wide">
               {project.category}
             </span>
-            <span className="text-ink-muted font-mono text-[11px]">{project.year}</span>
+            <span className="text-ink-muted font-mono text-[12px]">{project.year}</span>
           </div>
 
           <h1 className="font-display mt-5 text-[clamp(2.6rem,7vw,4.4rem)] leading-none tracking-tight">
@@ -102,9 +102,9 @@ export default async function ProjectPage({
                   href={link.href}
                   target="_blank"
                   rel="noreferrer"
-                  className="edge bg-surface hover:border-accent/50 hover:text-accent inline-flex items-center gap-2 rounded-md px-4 py-2.5 text-sm font-medium transition-colors"
+                  className="edge bg-surface hover:border-accent/50 hover:text-accent inline-flex min-h-11 items-center gap-2 rounded-md px-4 py-2.5 text-sm font-medium transition-colors"
                 >
-                  <span className="text-ink-muted font-mono text-[10px] tracking-widest uppercase">
+                  <span className="text-ink-muted font-mono text-[12px] tracking-widest uppercase">
                     {LINK_LABELS[link.kind]}
                   </span>
                   {link.label}
@@ -131,20 +131,20 @@ export default async function ProjectPage({
           <GalleryGrid items={project.gallery} columns={project.galleryColumns} />
         ) : (
           <Reveal>
-            <div className="edge relative aspect-16/10 overflow-hidden rounded-2xl sm:aspect-video">
-              {project.illustration === "dm-flow" ? (
+            {project.illustration === "dm-flow" ? (
+              <div className="edge relative aspect-16/10 overflow-hidden rounded-2xl sm:aspect-video">
                 <DmFlow />
-              ) : project.cover ? (
-                <Image
-                  src={project.cover}
-                  alt={project.coverAlt}
-                  fill
-                  sizes="(max-width: 1024px) 100vw, 960px"
-                  priority
-                  className="object-cover"
-                />
-              ) : null}
-            </div>
+              </div>
+            ) : project.cover ? (
+              <Image
+                src={project.cover}
+                alt={project.coverAlt}
+                {...intrinsic(project.coverRatio)}
+                sizes="(max-width: 1024px) 100vw, 960px"
+                priority
+                className="edge h-auto w-full rounded-2xl"
+              />
+            ) : null}
             {project.coverCaption && (
               <p className="text-ink-muted mt-2.5 text-[13px] leading-relaxed">
                 {project.coverCaption}
@@ -188,7 +188,7 @@ export default async function ProjectPage({
       <section className="mx-auto max-w-5xl px-5 py-20 sm:px-8">
         <div className="grid gap-10 lg:grid-cols-[200px_1fr] lg:gap-16">
           <Reveal>
-            <h2 className="text-ink-muted font-mono text-[11px] tracking-[0.2em] uppercase">
+            <h2 className="text-ink-muted font-mono text-[12px] tracking-[0.2em] uppercase">
               What it is
             </h2>
           </Reveal>
@@ -208,7 +208,7 @@ export default async function ProjectPage({
       <section className="border-hairline border-y">
         <div className="mx-auto max-w-5xl px-5 py-16 sm:px-8">
           <Reveal>
-            <h2 className="text-ink-muted mb-9 font-mono text-[11px] tracking-[0.2em] uppercase">
+            <h2 className="text-ink-muted mb-9 font-mono text-[12px] tracking-[0.2em] uppercase">
               How it&rsquo;s built
             </h2>
           </Reveal>
@@ -217,7 +217,7 @@ export default async function ProjectPage({
               <Reveal key={step.title} delay={stepIndex * 0.07} as="li">
                 <div className="edge bg-surface/40 h-full rounded-xl p-5">
                   <span
-                    className="font-mono text-[11px] tracking-widest"
+                    className="font-mono text-[12px] tracking-widest"
                     style={{ color: project.accent }}
                   >
                     {String(stepIndex + 1).padStart(2, "0")}
@@ -236,7 +236,7 @@ export default async function ProjectPage({
       {/* ---- what's included --------------------------------------------- */}
       <section className="mx-auto max-w-5xl px-5 py-20 sm:px-8">
         <Reveal>
-          <h2 className="text-ink-muted mb-9 font-mono text-[11px] tracking-[0.2em] uppercase">
+          <h2 className="text-ink-muted mb-9 font-mono text-[12px] tracking-[0.2em] uppercase">
             What&rsquo;s included
           </h2>
         </Reveal>
@@ -258,7 +258,7 @@ export default async function ProjectPage({
       {!showGalleryAsLead && (project.gallery.length > 0 || project.video?.full) && (
         <section className="mx-auto max-w-5xl px-5 pb-20 sm:px-8">
           <Reveal>
-            <h2 className="text-ink-muted mb-9 font-mono text-[11px] tracking-[0.2em] uppercase">
+            <h2 className="text-ink-muted mb-9 font-mono text-[12px] tracking-[0.2em] uppercase">
               Look at it
             </h2>
           </Reveal>
@@ -281,7 +281,7 @@ export default async function ProjectPage({
       <section className="border-hairline border-t">
         <div className="mx-auto max-w-5xl px-5 py-16 sm:px-8">
           <Reveal>
-            <h2 className="text-ink-muted mb-9 font-mono text-[11px] tracking-[0.2em] uppercase">
+            <h2 className="text-ink-muted mb-9 font-mono text-[12px] tracking-[0.2em] uppercase">
               Built with
             </h2>
           </Reveal>
@@ -294,7 +294,7 @@ export default async function ProjectPage({
                     {group.items.map((item) => (
                       <li
                         key={item}
-                        className="border-hairline text-ink-muted rounded-md border px-2.5 py-1 font-mono text-[11px]"
+                        className="border-hairline text-ink-muted rounded-md border px-2.5 py-1 font-mono text-[12px]"
                       >
                         {item}
                       </li>
@@ -314,7 +314,7 @@ export default async function ProjectPage({
           className="group mx-auto flex max-w-5xl items-center justify-between gap-6 px-5 py-12 sm:px-8"
         >
           <span>
-            <span className="text-ink-muted block font-mono text-[11px] tracking-[0.2em] uppercase">
+            <span className="text-ink-muted block font-mono text-[12px] tracking-[0.2em] uppercase">
               Next project
             </span>
             <span className="font-display mt-2 block text-3xl tracking-tight sm:text-4xl">

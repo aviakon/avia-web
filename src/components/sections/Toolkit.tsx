@@ -42,21 +42,21 @@ export function Toolkit() {
                   {group.items.map((item) => (
                     <li
                       key={item}
-                      className="border-hairline text-ink-muted rounded-md border px-2.5 py-1 font-mono text-[11px]"
+                      className="border-hairline text-ink-muted rounded-md border px-2.5 py-1 font-mono text-[12px]"
                     >
                       {item}
                     </li>
                   ))}
                 </ul>
 
-                <div className="border-hairline mt-6 flex flex-wrap gap-x-5 gap-y-1.5 border-t pt-5">
+                <div className="border-hairline mt-6 flex flex-wrap gap-x-5 border-t pt-3">
                   {group.evidence.map((evidence) => (
                     <Link
                       key={evidence.slug}
                       href={`/projects/${evidence.slug}`}
-                      className="text-ink-dim hover:text-accent text-[13px] transition-colors"
+                      className="text-ink-dim hover:text-accent inline-flex min-h-11 items-center text-[13px] transition-colors"
                     >
-                      {evidence.label} <span aria-hidden>→</span>
+                      {evidence.label} <span aria-hidden>&nbsp;→</span>
                     </Link>
                   ))}
                 </div>

@@ -6,19 +6,19 @@ import { GradientGlow } from "@/components/ui/GradientGlow";
 const principles = [
   {
     title: "Ship the whole thing",
-    body: "A product is not the interface. It is the interface, the agent behind it, the automations nobody sees, and the film that sells it. I build all four rather than handing off after the first.",
+    body: "The interface, the agent behind it, the automations nobody sees, and the film that sells it.",
   },
   {
-    title: "Claude Code as the workshop",
-    body: "AI tooling is how one person covers backend, iOS, desktop systems programming and ad creative in the same year. The leverage is real, and this site is one more instance of it.",
+    title: "AI tooling is the leverage",
+    body: "It is how one person covers backend, iOS, systems programming and ad creative in the same year.",
   },
   {
     title: "It has to work without the API key",
-    body: "Two of these projects run fully offline on heuristics and upgrade themselves the moment a key appears. An AI feature that collapses without a network is not a feature.",
+    body: "Two of these run fully offline and upgrade themselves the moment a key appears.",
   },
   {
-    title: "Privacy is an architecture, not a policy page",
-    body: "Storage that stays local, redaction by pattern before anything is written, analytics hashed with a salt that rotates nightly. Decisions made in the code, not in a disclaimer.",
+    title: "Privacy is an architecture",
+    body: "Local storage, redaction before anything is written, analytics hashed nightly. Decided in the code.",
   },
 ];
 
@@ -52,12 +52,9 @@ export function About() {
                 {site.shortBio}
               </p>
               <p className="text-ink-dim mt-4 text-[15px] leading-relaxed">
-                The work spans a voice agent that answers a real phone number and
-                sells a physical product, a vision model that counts poker chips
-                from a photograph, a job matching platform reading six live
-                sources in two languages, an Instagram automation running a real
-                storefront, and a desktop agent built straight onto the Windows
-                system layer. Different stacks, one habit: take it all the way to
+                A voice agent that sells a physical product. A vision model that
+                counts poker chips. A job platform reading six sources in two
+                languages. Different stacks, one habit: take it all the way to
                 production.
               </p>
             </Reveal>

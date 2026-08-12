@@ -74,7 +74,7 @@ export function TerminalBlock() {
         <span className="bg-hairline-strong size-2.5 rounded-full" />
         <span className="bg-hairline-strong size-2.5 rounded-full" />
         <span className="bg-hairline-strong size-2.5 rounded-full" />
-        <span className="text-ink-muted ml-2 font-mono text-[11px] tracking-wider">
+        <span className="text-ink-muted ml-2 font-mono text-[12px] tracking-wider">
           ~/avia
         </span>
       </div>
