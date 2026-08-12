@@ -96,80 +96,87 @@ export function ContactDialog() {
 
       <AnimatePresence>
         {open && (
+          // The overlay itself scrolls, and the row inside it carries
+          // min-h-full. A dialog shorter than the window stays centred, and one
+          // taller than the window (a phone held sideways, a short browser
+          // window, a large text setting) grows downward and can be scrolled to
+          // rather than having its header cut off the top.
           <motion.div
-            className="fixed inset-0 z-[70] flex items-end justify-center p-4 sm:items-center"
+            className="fixed inset-0 z-[70] overflow-y-auto overscroll-contain"
             initial={reduced ? false : { opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={reduced ? undefined : { opacity: 0 }}
             transition={{ duration: 0.22 }}
           >
             <div
-              className="bg-void/70 absolute inset-0 backdrop-blur-sm"
+              className="bg-void/70 fixed inset-0 backdrop-blur-sm"
               onClick={() => setOpen(false)}
               aria-hidden
             />
 
-            <motion.div
-              ref={panel}
-              role="dialog"
-              aria-modal="true"
-              aria-labelledby="contact-dialog-title"
-              initial={reduced ? false : { opacity: 0, y: 18, scale: 0.98 }}
-              animate={{ opacity: 1, y: 0, scale: 1 }}
-              exit={reduced ? undefined : { opacity: 0, y: 12, scale: 0.98 }}
-              transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
-              className="edge bg-surface glow-accent relative w-full max-w-md rounded-2xl p-7 sm:p-8"
-            >
-              <button
-                ref={closeButton}
-                type="button"
-                onClick={() => setOpen(false)}
-                aria-label="Close"
-                className="text-ink-muted hover:text-ink absolute top-4 right-4 rounded-md px-2 py-1 text-lg leading-none transition-colors"
+            <div className="relative flex min-h-full items-end justify-center p-4 sm:items-center">
+              <motion.div
+                ref={panel}
+                role="dialog"
+                aria-modal="true"
+                aria-labelledby="contact-dialog-title"
+                initial={reduced ? false : { opacity: 0, y: 18, scale: 0.98 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                exit={reduced ? undefined : { opacity: 0, y: 12, scale: 0.98 }}
+                transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
+                className="edge bg-surface glow-accent relative w-full max-w-md rounded-2xl p-7 sm:p-8"
               >
-                ×
-              </button>
+                <button
+                  ref={closeButton}
+                  type="button"
+                  onClick={() => setOpen(false)}
+                  aria-label="Close"
+                  className="text-ink-muted hover:text-ink absolute top-4 right-4 rounded-md px-2 py-1 text-lg leading-none transition-colors"
+                >
+                  ×
+                </button>
 
-              <p className="text-accent font-mono text-[12px] tracking-[0.2em] uppercase">
-                Get in touch
-              </p>
-              <h2
-                id="contact-dialog-title"
-                className="font-display mt-3 text-3xl tracking-tight"
-              >
-                {site.name}
-              </h2>
-              <p className="text-ink-muted mt-1 text-sm">
-                {site.role} · {site.location}
-              </p>
+                <p className="text-accent font-mono text-[12px] tracking-[0.2em] uppercase">
+                  Get in touch
+                </p>
+                <h2
+                  id="contact-dialog-title"
+                  className="font-display mt-3 text-3xl tracking-tight"
+                >
+                  {site.name}
+                </h2>
+                <p className="text-ink-muted mt-1 text-sm">
+                  {site.role} · {site.location}
+                </p>
 
-              <ul className="mt-7 space-y-3">
-                {rows.map((row) => (
-                  <li
-                    key={row.label}
-                    className="border-hairline bg-canvas/40 flex items-center gap-3 rounded-xl border p-4"
-                  >
-                    <div className="min-w-0 flex-1">
-                      <p className="text-ink-muted font-mono text-[12px] tracking-widest uppercase">
-                        {row.label}
-                      </p>
-                      <a
-                        href={row.href}
-                        className="text-ink hover:text-accent mt-1 block truncate text-[15px] font-medium transition-colors"
-                        dir="ltr"
-                      >
-                        {row.value}
-                      </a>
-                    </div>
-                    <CopyButton value={row.copy} />
-                  </li>
-                ))}
-              </ul>
+                <ul className="mt-7 space-y-3">
+                  {rows.map((row) => (
+                    <li
+                      key={row.label}
+                      className="border-hairline bg-canvas/40 flex items-center gap-3 rounded-xl border p-4"
+                    >
+                      <div className="min-w-0 flex-1">
+                        <p className="text-ink-muted font-mono text-[12px] tracking-widest uppercase">
+                          {row.label}
+                        </p>
+                        <a
+                          href={row.href}
+                          className="text-ink hover:text-accent mt-1 block truncate text-[15px] font-medium transition-colors"
+                          dir="ltr"
+                        >
+                          {row.value}
+                        </a>
+                      </div>
+                      <CopyButton value={row.copy} />
+                    </li>
+                  ))}
+                </ul>
 
-              <p className="text-ink-muted mt-6 text-[13px] leading-relaxed">
-                Email is the fastest way to reach me. I read everything.
-              </p>
-            </motion.div>
+                <p className="text-ink-muted mt-6 text-[13px] leading-relaxed">
+                  Email is the fastest way to reach me. I read everything.
+                </p>
+              </motion.div>
+            </div>
           </motion.div>
         )}
       </AnimatePresence>
