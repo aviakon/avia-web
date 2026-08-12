@@ -56,7 +56,7 @@ export function ProjectVisual({
         }}
       />
       <span
-        className="font-display relative text-[clamp(2.5rem,7vw,4.5rem)] leading-none tracking-tight opacity-90"
+        className="font-display relative text-[clamp(2.5rem,7vw,4.5rem)] leading-[1.12] tracking-tight opacity-90"
         style={{ color: project.accent }}
       >
         {project.name}

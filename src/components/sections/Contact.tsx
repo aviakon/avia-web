@@ -20,7 +20,7 @@ export function Contact() {
           <p className="text-accent mb-5 font-mono text-[12px] tracking-[0.2em] uppercase">
             Contact
           </p>
-          <h2 className="font-display text-[clamp(2.2rem,5.5vw,3.6rem)] leading-[1.05] tracking-tight">
+          <h2 className="font-display text-[clamp(2.2rem,5.5vw,3.6rem)] leading-[1.18] tracking-tight">
             Looking for someone who ships{" "}
             <span className="font-display text-ink-muted italic">all of it?</span>
           </h2>

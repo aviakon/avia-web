@@ -22,6 +22,8 @@ const FINAL = path.resolve("public/screenshots");
 const WIDE = 1600;
 /** Phone screens render at most a third of the page width, so this is ample. */
 const PHONE_W = 900;
+/** The page's own canvas colour, so composed gaps disappear into the page. */
+const BACKGROUND = { r: 10, g: 10, b: 15, alpha: 1 };
 
 const wide = [
   { from: "automa/desktop-hero.png", to: "automa-product.webp" },
@@ -102,29 +104,57 @@ for (const item of phones) {
 }
 
 /**
- * The project card on the home page is a fixed 16:10 frame, which a portrait
- * phone cannot fill. Rather than letterbox it, take a landscape band from the
- * middle of the table, centred on the pot.
+ * The three poker screens composed into a single landscape image: the lobby,
+ * the live table, and the settlement, side by side.
+ *
+ * One picture rather than three does two jobs at once. It gives the project
+ * card on the home page something landscape to show without cropping a band
+ * out of the felt, and it lets the case study lead with the whole story of the
+ * product in a single frame. The gaps are painted in the page's own background
+ * colour, so they read as space between phones rather than as bars around a
+ * screenshot.
  */
 {
-  const source = path.join(CANDIDATES, "poker-splitter/game-02-table.png");
-  const meta = await sharp(source).metadata();
+  const sources = [
+    "poker-splitter/game-01-lobby.png",
+    "poker-splitter/game-02-table.png",
+    "poker-splitter/game-06-settlement.png",
+  ].map((p) => path.join(CANDIDATES, p));
 
-  // Trim the dark surround the app draws either side of the felt, so the crop
-  // is table and nothing else.
-  const left = Math.round(meta.width * 0.075);
-  const width = Math.round(meta.width * 0.85);
-  const bandHeight = Math.round((width / 16) * 10);
-  const centre = Math.round(meta.height * 0.45); // the felt, centred on the pot
-  const top = Math.max(0, Math.min(centre - bandHeight / 2, meta.height - bandHeight));
+  const first = await sharp(sources[0]).metadata();
+  const phoneW = first.width;
+  const phoneH = first.height;
+  const gap = Math.round(phoneW * 0.09);
 
-  const out = path.join(FINAL, "poker-cover.webp");
-  await sharp(source)
-    .extract({ left, top: Math.round(top), width, height: bandHeight })
+  const canvasW = phoneW * 3 + gap * 2;
+  const canvasH = phoneH;
+
+  const phones = await Promise.all(sources.map((s) => sharp(s).png().toBuffer()));
+
+  // Compose at full size first. Sharp resizes its input before compositing, so
+  // doing both in one chain would shrink the canvas out from under the phones.
+  const composed = await sharp({
+    create: {
+      width: canvasW,
+      height: canvasH,
+      channels: 4,
+      background: BACKGROUND,
+    },
+  })
+    .composite(phones.map((input, i) => ({ input, top: 0, left: i * (phoneW + gap) })))
+    .png()
+    .toBuffer();
+
+  const out = path.join(FINAL, "poker-combined.webp");
+  await sharp(composed)
     .resize({ width: WIDE, kernel: sharp.kernel.lanczos3 })
-    .webp({ quality: 88 })
+    .webp({ quality: 90 })
     .toFile(out);
-  console.log(`  poker-cover.webp           ${WIDE}px wide, felt only`);
+
+  const height = Math.round((canvasH / canvasW) * WIDE);
+  console.log(
+    `  poker-combined.webp        ${WIDE}x${height}  ratio ${WIDE} / ${height}  (3 screens)`,
+  );
 }
 
 console.log(`\nfinals in ${FINAL}`);

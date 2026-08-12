@@ -265,36 +265,16 @@ export const projects: Project[] = [
     links: [
       { label: "Open the live app", href: "https://poker-splitter.web.app", kind: "live" },
     ],
-    // The cover image is a cropped band used only for the compact card on the
-    // home page. The case study itself leads with the gallery below, since the
-    // product is genuinely a sequence of three screens rather than one page.
-    cover: "/screenshots/poker-cover.webp",
-    coverAlt: "The Poker Splitter felt, with the total pot and two players seated",
-    leadMedia: "gallery",
-    galleryColumns: 3,
-    gallery: [
-      {
-        src: "/screenshots/poker-lobby.webp",
-        alt: "A Poker Splitter lobby showing the room code, a QR invite, and four players who have joined",
-        caption:
-          "The lobby: a six character code, a QR invite, and players appearing live as they join.",
-        ratio: "900 / 1951",
-      },
-      {
-        src: "/screenshots/poker-table.webp",
-        alt: "The live Poker Splitter table with four players seated around the felt and a total pot of 450 dollars",
-        caption:
-          "The live table, rendered from your own seat. Buy ins and rebuys land here in realtime.",
-        ratio: "900 / 1951",
-      },
-      {
-        src: "/screenshots/poker-settlement.webp",
-        alt: "The Poker Splitter settlement screen listing three payments needed to settle the table",
-        caption:
-          "The settlement. Four players and a 450 dollar pot reduced to three payments, and no argument.",
-        ratio: "900 / 1951",
-      },
-    ],
+    // The three screens composed into a single image, so the whole product
+    // reads in one frame. It serves as both the card on the home page and the
+    // lead here, which leaves nothing to repeat further down the page.
+    cover: "/screenshots/poker-combined.webp",
+    coverAlt:
+      "Three Poker Splitter screens side by side: the lobby with its room code, the live table with a 450 dollar pot, and the settlement listing three payments",
+    coverRatio: "1600 / 1091",
+    coverCaption:
+      "The lobby, the live table, and the settlement. Four players and a 450 dollar pot reduced to three payments, and no argument.",
+    gallery: [],
     accent: "#7fe38f",
   },
 

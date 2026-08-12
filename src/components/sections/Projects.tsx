@@ -38,7 +38,7 @@ function Flagship() {
           <div className="flex flex-col justify-center p-7 sm:p-10">
             <StatusPill status={project.status} />
 
-            <h3 className="font-display mt-4 text-[clamp(2rem,3.6vw,2.8rem)] leading-none tracking-tight">
+            <h3 className="font-display mt-4 text-[clamp(2rem,3.6vw,2.8rem)] leading-[1.12] tracking-tight">
               {project.name}
             </h3>
             <p

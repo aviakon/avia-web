@@ -48,7 +48,7 @@ export function Hero() {
               content runs together for screen readers, copied text and search
               engines.
             */}
-            <h1 className="font-display text-[clamp(2.1rem,4.4vw,3.2rem)] leading-[1.08] tracking-tight">
+            <h1 className="font-display text-[clamp(2.1rem,4.4vw,3.2rem)] leading-[1.15] tracking-tight">
               {WORDS.map((line, lineIndex) => (
                 <span key={lineIndex} className="block">
                   {line.map((word, wordIndex) => (

@@ -27,7 +27,7 @@ export function SectionHeading({
         {eyebrow}
       </p>
       <h2
-        className={`font-display leading-[1.08] tracking-tight ${
+        className={`font-display leading-[1.15] tracking-tight ${
           oneLine
             ? "text-[clamp(1.75rem,3.6vw,2.7rem)] lg:whitespace-nowrap"
             : "text-[clamp(2rem,4.4vw,3.1rem)]"

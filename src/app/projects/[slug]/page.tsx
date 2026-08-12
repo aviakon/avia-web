@@ -84,7 +84,7 @@ export default async function ProjectPage({
             <span className="text-ink-muted font-mono text-[12px]">{project.year}</span>
           </div>
 
-          <h1 className="font-display mt-5 text-[clamp(2.6rem,7vw,4.4rem)] leading-none tracking-tight">
+          <h1 className="font-display mt-5 text-[clamp(2.6rem,7vw,4.4rem)] leading-[1.12] tracking-tight">
             {project.name}
           </h1>
           <p
@@ -159,7 +159,10 @@ export default async function ProjectPage({
         <dl className="border-hairline divide-hairline mt-14 grid grid-cols-2 gap-y-8 border-y py-9 sm:grid-cols-4 sm:divide-x">
           {project.metrics.map((metric, metricIndex) => {
             // Symbols like ∞ sit far smaller than digits in this serif, so they
-            // need a size bump to read at the same weight as their neighbours.
+            // get a size bump to read at the same weight as their neighbours.
+            // The leading stays generous either way: this serif's descenders
+            // overflow anything tighter, and a clipped glyph is worse than a
+            // slightly taller row.
             const isSymbol = metric.value.length === 1 && !/[a-z0-9]/i.test(metric.value);
 
             return (
@@ -167,8 +170,8 @@ export default async function ProjectPage({
               <dt className="sr-only">{metric.label}</dt>
               <dd>
                 <span
-                  className={`font-display block ${
-                    isSymbol ? "text-5xl leading-[0.72] sm:text-6xl" : "text-3xl sm:text-4xl"
+                  className={`font-display block leading-[1.15] ${
+                    isSymbol ? "text-4xl sm:text-5xl" : "text-3xl sm:text-4xl"
                   }`}
                   style={{ color: project.accent }}
                 >
