@@ -29,6 +29,11 @@ const wide = [
   { from: "automa/desktop-agent.png", to: "automa-agent.webp" },
   { from: "jobscout/landing.png", to: "jobscout-landing.webp" },
   { from: "jobscout/start.png", to: "jobscout-start.webp" },
+  // Element-scoped screenshots from a real scan (Full Stack Developer / React
+  // Developer, 3,515 jobs scanned, 76 matches): the .stats-bar itself, and a
+  // scrolled capture of the ranked list with its colour-coded score badges.
+  { from: "jobscout/scoreboard-stats.png", to: "jobscout-scoreboard.webp" },
+  { from: "jobscout/scoreboard-matches.png", to: "jobscout-matches.webp" },
   {
     from: "work-continuity-agent/report-2x.png",
     to: "wca-report.webp",

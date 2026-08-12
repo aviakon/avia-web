@@ -38,7 +38,9 @@ These are build-time utilities, not part of the deployed site.
 | `node scripts/media.mjs build` | Writes the preview loop, poster and 720p cut into `public/media` |
 | `node scripts/contact-sheet.mjs <dir> <seconds>` | Samples frames so a preview window can be chosen by eye |
 | `node scripts/capture-candidates.mjs [slug]` | Screenshots the live project sites into `public/screenshots/candidates` |
-| `node scripts/capture-poker.mjs` | Drives the live Poker Splitter app to photograph its room-creation flow |
+| `node scripts/capture-poker.mjs` | Plays a whole four player game against the live app to photograph the lobby, table and settlement |
+| `node scripts/capture-jobscout.mjs` | Drives a local JobScout instance through onboarding and prints the candidate URL |
+| `node scripts/capture-jobscout-scoreboard.mjs <candidate url>` | Screenshots the scoreboard and the ranked match list from a scanned candidate |
 | `node scripts/optimize-shots.mjs` | Turns chosen candidates into the webp finals the site ships |
 | `node scripts/shoot.mjs <url> <out> [--full --sweep]` | General-purpose screenshot helper |
 | `node scripts/smoke.mjs [baseUrl]` | Checks every route renders and every external link resolves |

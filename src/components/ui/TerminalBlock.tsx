@@ -17,7 +17,7 @@ const SCRIPT: Line[] = [
   { kind: "item", label: "voice agents", text: "one real phone number, real orders" },
   { kind: "item", label: "ai video", text: "a commercial generated start to finish" },
   { kind: "item", label: "marketing", text: "content and bots for a real storefront" },
-  { kind: "done", text: "all of it built with Claude Code" },
+  { kind: "done", text: "shipped, not just prototyped" },
 ];
 
 const TYPE_MS = 17;
@@ -75,7 +75,7 @@ export function TerminalBlock() {
         <span className="bg-hairline-strong size-2.5 rounded-full" />
         <span className="bg-hairline-strong size-2.5 rounded-full" />
         <span className="text-ink-muted ml-2 font-mono text-[11px] tracking-wider">
-          claude code · avia
+          ~/avia
         </span>
       </div>
 

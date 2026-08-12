@@ -5,6 +5,7 @@ import { notFound } from "next/navigation";
 import { projects, projectBySlug } from "@/data/projects";
 import { StatusPill } from "@/components/project/ProjectCard";
 import { DmFlow } from "@/components/project/DmFlow";
+import { GalleryGrid } from "@/components/project/GalleryGrid";
 import { LiveEmbed } from "@/components/project/LiveEmbed";
 import { VideoPlayer } from "@/components/project/VideoPlayer";
 import { Reveal } from "@/components/ui/Reveal";
@@ -51,6 +52,11 @@ export default async function ProjectPage({
 
   const index = projects.findIndex((item) => item.slug === project.slug);
   const next = projects[(index + 1) % projects.length];
+
+  // The gallery is either shown once, as the lead visual, or once, further
+  // down the page — never both, so no screenshot repeats.
+  const showGalleryAsLead =
+    !project.embed && project.leadMedia === "gallery" && project.gallery.length > 0;
 
   return (
     <article className="pb-24">
@@ -112,15 +118,19 @@ export default async function ProjectPage({
 
       {/* ---- lead visual ----------------------------------------------- */}
       <div className="mx-auto max-w-5xl px-5 sm:px-8">
-        <Reveal>
-          {project.embed ? (
+        {project.embed ? (
+          <Reveal>
             <LiveEmbed
               url={project.embed.url}
               label={project.embed.label}
               note={project.embed.note}
               accent={project.accent}
             />
-          ) : (
+          </Reveal>
+        ) : showGalleryAsLead ? (
+          <GalleryGrid items={project.gallery} columns={project.galleryColumns} />
+        ) : (
+          <Reveal>
             <div className="edge relative aspect-16/10 overflow-hidden rounded-2xl sm:aspect-video">
               {project.illustration === "dm-flow" ? (
                 <DmFlow />
@@ -135,19 +145,31 @@ export default async function ProjectPage({
                 />
               ) : null}
             </div>
-          )}
-        </Reveal>
+            {project.coverCaption && (
+              <p className="text-ink-muted mt-2.5 text-[13px] leading-relaxed">
+                {project.coverCaption}
+              </p>
+            )}
+          </Reveal>
+        )}
       </div>
 
       {/* ---- metrics ---------------------------------------------------- */}
       <section className="mx-auto max-w-5xl px-5 sm:px-8">
         <dl className="border-hairline divide-hairline mt-14 grid grid-cols-2 gap-y-8 border-y py-9 sm:grid-cols-4 sm:divide-x">
-          {project.metrics.map((metric, metricIndex) => (
+          {project.metrics.map((metric, metricIndex) => {
+            // Symbols like ∞ sit far smaller than digits in this serif, so they
+            // need a size bump to read at the same weight as their neighbours.
+            const isSymbol = metric.value.length === 1 && !/[a-z0-9]/i.test(metric.value);
+
+            return (
             <Reveal key={metric.label} delay={metricIndex * 0.06} className="sm:px-6 sm:first:pl-0">
               <dt className="sr-only">{metric.label}</dt>
               <dd>
                 <span
-                  className="font-display block text-3xl sm:text-4xl"
+                  className={`font-display block ${
+                    isSymbol ? "text-5xl leading-[0.72] sm:text-6xl" : "text-3xl sm:text-4xl"
+                  }`}
                   style={{ color: project.accent }}
                 >
                   {metric.value}
@@ -157,7 +179,8 @@ export default async function ProjectPage({
                 </span>
               </dd>
             </Reveal>
-          ))}
+            );
+          })}
         </dl>
       </section>
 
@@ -230,7 +253,9 @@ export default async function ProjectPage({
       </section>
 
       {/* ---- media ------------------------------------------------------- */}
-      {(project.gallery.length > 0 || project.video?.full) && (
+      {/* Skipped when the gallery already ran as the lead visual above, so no
+          screenshot ever appears twice on the same page. */}
+      {!showGalleryAsLead && (project.gallery.length > 0 || project.video?.full) && (
         <section className="mx-auto max-w-5xl px-5 pb-20 sm:px-8">
           <Reveal>
             <h2 className="text-ink-muted mb-9 font-mono text-[11px] tracking-[0.2em] uppercase">
@@ -248,44 +273,7 @@ export default async function ProjectPage({
             </Reveal>
           )}
 
-          <div
-            className={`grid gap-4 sm:grid-cols-2 ${
-              project.galleryColumns === 3 ? "lg:grid-cols-3" : ""
-            }`}
-          >
-            {project.gallery.map((item, itemIndex) => (
-              <Reveal
-                key={item.src}
-                delay={itemIndex * 0.05}
-                as="figure"
-                className={item.wide ? "sm:col-span-2" : undefined}
-              >
-                <div
-                  className="edge relative overflow-hidden rounded-xl"
-                  style={{ aspectRatio: item.ratio ?? "16 / 10" }}
-                >
-                  <Image
-                    src={item.src}
-                    alt={item.alt}
-                    fill
-                    sizes={
-                      item.wide
-                        ? "(max-width: 1024px) 100vw, 960px"
-                        : project.galleryColumns === 3
-                          ? "(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                          : "(max-width: 640px) 100vw, 50vw"
-                    }
-                    className="object-cover"
-                  />
-                </div>
-                {item.caption && (
-                  <figcaption className="text-ink-muted mt-2.5 text-[13px] leading-relaxed">
-                    {item.caption}
-                  </figcaption>
-                )}
-              </Reveal>
-            ))}
-          </div>
+          <GalleryGrid items={project.gallery} columns={project.galleryColumns} />
         </section>
       )}
 

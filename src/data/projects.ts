@@ -44,6 +44,14 @@ export type Project = {
   coverAlt: string;
   /** A live, scrollable embed of the real site, shown instead of a still. */
   embed?: { url: string; label: string; note: string };
+  /** A line under the lead cover image, for projects with only one screenshot. */
+  coverCaption?: string;
+  /**
+   * Show the gallery itself as the lead visual, for a product whose story is a
+   * sequence of screens rather than one page. The gallery is not repeated
+   * further down when this is set.
+   */
+  leadMedia?: "gallery";
   /** Columns the gallery lays out in on a wide screen. Three suits phone shots. */
   galleryColumns?: 2 | 3;
   gallery: MediaItem[];
@@ -194,7 +202,7 @@ export const projects: Project[] = [
     metrics: [
       { value: "2", label: "full builds, web and iOS" },
       { value: "AI", label: "chip counting from a photo" },
-      { value: "min", label: "transfers to settle the table" },
+      { value: "∞", label: "tables live at once, all in sync" },
       { value: "QR", label: "join, no account needed" },
     ],
     features: [
@@ -255,8 +263,12 @@ export const projects: Project[] = [
     links: [
       { label: "Open the live app", href: "https://poker-splitter.web.app", kind: "live" },
     ],
+    // The cover image is a cropped band used only for the compact card on the
+    // home page. The case study itself leads with the gallery below, since the
+    // product is genuinely a sequence of three screens rather than one page.
     cover: "/screenshots/poker-cover.webp",
     coverAlt: "The Poker Splitter felt, with the total pot and two players seated",
+    leadMedia: "gallery",
     galleryColumns: 3,
     gallery: [
       {
@@ -368,17 +380,27 @@ export const projects: Project[] = [
     coverAlt: "The JobScout landing page in Hebrew, laid out right to left",
     gallery: [
       {
-        src: "/screenshots/jobscout-landing.webp",
-        alt: "JobScout landing page in Hebrew with an aurora background and four feature cards",
-        caption:
-          "The landing page: Hebrew, right to left, and drawn entirely in CSS so it loads with no external requests.",
-        wide: true,
-      },
-      {
         src: "/screenshots/jobscout-start.webp",
         alt: "JobScout resume upload step offering file, text, photo and link options",
         caption:
           "Step one: a resume as a file, pasted text, a link, or a photograph read by OCR and Claude vision.",
+        wide: true,
+      },
+      {
+        src: "/screenshots/jobscout-scoreboard.webp",
+        alt: "JobScout scoreboard showing 25 companies, an average score of 46, a maximum score of 70 and 76 matches",
+        caption:
+          "The scoreboard from a real scan: twenty five companies, seventy six matches, a top score of seventy.",
+        wide: true,
+        ratio: "1600 / 203",
+      },
+      {
+        src: "/screenshots/jobscout-matches.webp",
+        alt: "Ranked JobScout matches with colour coded scores and the reasons behind each one",
+        caption:
+          "Every match ranked and scored, with the reasoning shown rather than hidden behind the number.",
+        wide: true,
+        ratio: "1724 / 1414",
       },
     ],
     accent: "#a78bfa",
@@ -550,16 +572,11 @@ export const projects: Project[] = [
     links: [],
     cover: "/screenshots/wca-report.webp",
     coverAlt: "The Work Continuity Agent report, with open loops and generated briefings",
-    gallery: [
-      {
-        src: "/screenshots/wca-report.webp",
-        alt: "The Work Continuity Agent report showing snapshot counts, an open loop, and a generated daily digest",
-        caption:
-          "The local report from a real session: snapshot counts, a tracked open loop, and the digest it wrote at the end of the day. Generated on the machine, never uploaded.",
-        wide: true,
-        ratio: "1600 / 1045",
-      },
-    ],
+    coverCaption:
+      "The local report from a real session: snapshot counts, a tracked open loop, and the digest it wrote at the end of the day. Generated on the machine, never uploaded.",
+    // The cover image above is the only screenshot this project has, and it is
+    // already shown at the top of the page — nothing left to repeat here.
+    gallery: [],
     accent: "#ffb86b",
   },
 ];
