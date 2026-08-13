@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { createPortal } from "react-dom";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { site } from "@/data/site";
 
@@ -36,10 +37,18 @@ function CopyButton({ value }: { value: string }) {
 
 export function ContactDialog() {
   const [open, setOpen] = useState(false);
+  const [mounted, setMounted] = useState(false);
   const reduced = useReducedMotion();
   const panel = useRef<HTMLDivElement>(null);
   const closeButton = useRef<HTMLButtonElement>(null);
   const opener = useRef<HTMLButtonElement>(null);
+
+  // The dialog is portalled to the body rather than rendered where it sits in
+  // the tree. Its trigger lives in the navbar, and once the page is scrolled
+  // the navbar gains a backdrop blur. A backdrop-filter makes an element the
+  // containing block for fixed descendants, so an overlay nested inside it
+  // would anchor to the 72px header instead of the viewport.
+  useEffect(() => setMounted(true), []);
 
   const rows: Row[] = [
     ...(site.phone
@@ -94,92 +103,115 @@ export function ContactDialog() {
         Get in touch
       </button>
 
-      <AnimatePresence>
-        {open && (
-          // The overlay itself scrolls, and the row inside it carries
-          // min-h-full. A dialog shorter than the window stays centred, and one
-          // taller than the window (a phone held sideways, a short browser
-          // window, a large text setting) grows downward and can be scrolled to
-          // rather than having its header cut off the top.
-          <motion.div
-            className="fixed inset-0 z-[70] overflow-y-auto overscroll-contain"
-            initial={reduced ? false : { opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={reduced ? undefined : { opacity: 0 }}
-            transition={{ duration: 0.22 }}
-          >
-            <div
-              className="bg-void/70 fixed inset-0 backdrop-blur-sm"
-              onClick={() => setOpen(false)}
-              aria-hidden
-            />
-
-            <div className="relative flex min-h-full items-end justify-center p-4 sm:items-center">
+      {mounted &&
+        createPortal(
+          <AnimatePresence>
+            {open && (
+              // The overlay itself scrolls, and the row inside it carries
+              // min-h-full. A dialog shorter than the window stays centred, and one
+              // taller than the window (a phone held sideways, a short browser
+              // window, a large text setting) grows downward and can be scrolled to
+              // rather than having its header cut off the top.
               <motion.div
-                ref={panel}
-                role="dialog"
-                aria-modal="true"
-                aria-labelledby="contact-dialog-title"
-                initial={reduced ? false : { opacity: 0, y: 18, scale: 0.98 }}
-                animate={{ opacity: 1, y: 0, scale: 1 }}
-                exit={reduced ? undefined : { opacity: 0, y: 12, scale: 0.98 }}
-                transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
-                className="edge bg-surface glow-accent relative w-full max-w-md rounded-2xl p-7 sm:p-8"
+                className="fixed inset-0 z-[70] overflow-y-auto overscroll-contain"
+                initial={reduced ? false : { opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={reduced ? undefined : { opacity: 0 }}
+                transition={{ duration: 0.22 }}
               >
-                <button
-                  ref={closeButton}
-                  type="button"
+                <div
+                  className="bg-void/70 fixed inset-0 backdrop-blur-sm"
                   onClick={() => setOpen(false)}
-                  aria-label="Close"
-                  className="text-ink-muted hover:text-ink absolute top-4 right-4 rounded-md px-2 py-1 text-lg leading-none transition-colors"
-                >
-                  ×
-                </button>
+                  aria-hidden
+                />
 
-                <p className="text-accent font-mono text-[12px] tracking-[0.2em] uppercase">
-                  Get in touch
-                </p>
-                <h2
-                  id="contact-dialog-title"
-                  className="font-display mt-3 text-3xl tracking-tight"
-                >
-                  {site.name}
-                </h2>
-                <p className="text-ink-muted mt-1 text-sm">
-                  {site.role} · {site.location}
-                </p>
-
-                <ul className="mt-7 space-y-3">
-                  {rows.map((row) => (
-                    <li
-                      key={row.label}
-                      className="border-hairline bg-canvas/40 flex items-center gap-3 rounded-xl border p-4"
+                <div className="relative flex min-h-full items-end justify-center p-4 sm:items-center">
+                  {/*
+                The underscores in the max height matter: Tailwind turns them
+                into the spaces calc() requires. calc(100dvh-2rem) is invalid
+                CSS, which browsers drop, leaving the panel uncapped.
+              */}
+                  <motion.div
+                    ref={panel}
+                    role="dialog"
+                    aria-modal="true"
+                    aria-labelledby="contact-dialog-title"
+                    initial={
+                      reduced ? false : { opacity: 0, y: 18, scale: 0.98 }
+                    }
+                    animate={{ opacity: 1, y: 0, scale: 1 }}
+                    exit={
+                      reduced ? undefined : { opacity: 0, y: 12, scale: 0.98 }
+                    }
+                    transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
+                    className="edge bg-surface glow-accent relative flex max-h-[calc(100dvh_-_2rem)] w-full max-w-md flex-col rounded-2xl"
+                  >
+                    <button
+                      ref={closeButton}
+                      type="button"
+                      onClick={() => setOpen(false)}
+                      aria-label="Close"
+                      className="text-ink-muted hover:text-ink absolute top-3 right-3 z-10 flex size-10 items-center justify-center rounded-md text-xl leading-none transition-colors"
                     >
-                      <div className="min-w-0 flex-1">
-                        <p className="text-ink-muted font-mono text-[12px] tracking-widest uppercase">
-                          {row.label}
-                        </p>
-                        <a
-                          href={row.href}
-                          className="text-ink hover:text-accent mt-1 block truncate text-[15px] font-medium transition-colors"
-                          dir="ltr"
-                        >
-                          {row.value}
-                        </a>
-                      </div>
-                      <CopyButton value={row.copy} />
-                    </li>
-                  ))}
-                </ul>
+                      ×
+                    </button>
 
-                <p className="text-ink-muted mt-6 text-[13px] leading-relaxed">
-                  Email is the fastest way to reach me. I read everything.
-                </p>
+                    {/*
+                  The heading stays put and only the details scroll, so the
+                  name and the close button remain on screen no matter how
+                  short the window is. Otherwise a dialog taller than the
+                  viewport scrolls its own header out of reach.
+                */}
+                    <div className="shrink-0 px-7 pt-7 pb-1 sm:px-8 sm:pt-8">
+                      <p className="text-accent font-mono text-[12px] tracking-[0.2em] uppercase">
+                        Get in touch
+                      </p>
+                      <h2
+                        id="contact-dialog-title"
+                        className="font-display mt-3 text-3xl tracking-tight"
+                      >
+                        {site.name}
+                      </h2>
+                      <p className="text-ink-muted mt-1 text-sm">
+                        {site.role} · {site.location}
+                      </p>
+                    </div>
+
+                    <div className="min-h-0 flex-1 overflow-y-auto px-7 pt-6 pb-7 sm:px-8 sm:pb-8">
+                      <ul className="space-y-3">
+                        {rows.map((row) => (
+                          <li
+                            key={row.label}
+                            className="border-hairline bg-canvas/40 flex items-center gap-3 rounded-xl border p-4"
+                          >
+                            <div className="min-w-0 flex-1">
+                              <p className="text-ink-muted font-mono text-[12px] tracking-widest uppercase">
+                                {row.label}
+                              </p>
+                              <a
+                                href={row.href}
+                                className="text-ink hover:text-accent mt-1 block truncate text-[15px] font-medium transition-colors"
+                                dir="ltr"
+                              >
+                                {row.value}
+                              </a>
+                            </div>
+                            <CopyButton value={row.copy} />
+                          </li>
+                        ))}
+                      </ul>
+
+                      <p className="text-ink-muted mt-6 text-[13px] leading-relaxed">
+                        Email is the fastest way to reach me. I read everything.
+                      </p>
+                    </div>
+                  </motion.div>
+                </div>
               </motion.div>
-            </div>
-          </motion.div>
+            )}
+          </AnimatePresence>,
+          document.body,
         )}
-      </AnimatePresence>
     </>
   );
 }
