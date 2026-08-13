@@ -52,19 +52,22 @@ for (const route of routes) {
     ({ minTap, minFont }) => {
       const out = { overflow: null, smallTaps: [], smallText: [], badRatios: [], zeros: [] };
 
+      // Measure against clientWidth, not innerWidth: when the layout overflows,
+      // innerWidth widens to match it and the comparison silently passes.
       const doc = document.documentElement;
-      if (doc.scrollWidth > window.innerWidth + 1) {
+      const viewport = doc.clientWidth;
+      if (doc.scrollWidth > viewport + 1) {
         // Find what is actually sticking out.
         const wide = [];
         document.querySelectorAll("*").forEach((el) => {
           const r = el.getBoundingClientRect();
-          if (r.width > 0 && r.right > window.innerWidth + 1) {
+          if (r.width > 0 && r.right > viewport + 1) {
             wide.push(
               `${el.tagName.toLowerCase()}.${String(el.className).slice(0, 40)} right=${Math.round(r.right)}`,
             );
           }
         });
-        out.overflow = { scrollWidth: doc.scrollWidth, inner: window.innerWidth, culprits: wide.slice(0, 5) };
+        out.overflow = { scrollWidth: doc.scrollWidth, inner: viewport, culprits: wide.slice(0, 5) };
       }
 
       document.querySelectorAll("a, button").forEach((el) => {

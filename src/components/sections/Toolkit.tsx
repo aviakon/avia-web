@@ -7,7 +7,10 @@ import { GradientGlow } from "@/components/ui/GradientGlow";
 
 export function Toolkit() {
   return (
-    <section id="capabilities" className="relative scroll-mt-20 py-24 sm:py-32">
+    <section
+      id="capabilities"
+      className="relative scroll-mt-20 overflow-hidden py-24 sm:py-32"
+    >
       <GradientGlow
         className="top-1/4 left-1/2 size-[600px] -translate-x-1/2"
         color="#66e3ff"

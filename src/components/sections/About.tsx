@@ -24,7 +24,7 @@ const principles = [
 
 export function About() {
   return (
-    <section id="about" className="relative scroll-mt-20 py-24 sm:py-32">
+    <section id="about" className="relative scroll-mt-20 overflow-hidden py-24 sm:py-32">
       <GradientGlow
         className="top-1/3 right-0 size-[420px]"
         color="#ffb86b"

@@ -27,6 +27,19 @@
 }
 
 @layer base {
+  /*
+    The page must never pan sideways. Individual sections clip their own
+    background glows, but this is the backstop: clip rather than hidden, so no
+    horizontal scroll container is created and sticky positioning still works.
+    Both elements carry it, because overflow set on body alone propagates to
+    the viewport and leaves the root itself scrollable on iOS Safari.
+  */
+  html,
+  body {
+    max-width: 100%;
+    overflow-x: clip;
+  }
+
   html {
     scroll-behavior: smooth;
     -webkit-tap-highlight-color: transparent;
@@ -37,7 +50,6 @@
     color: var(--color-ink);
     font-family: var(--font-sans);
     font-feature-settings: "cv11", "ss01";
-    overflow-x: hidden;
   }
 
   ::selection {
