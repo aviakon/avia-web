@@ -370,19 +370,19 @@ export const projects: Project[] = [
       },
       {
         src: "/screenshots/jobscout-scoreboard.webp",
-        alt: "JobScout scoreboard showing 25 companies, an average score of 46, a maximum score of 70 and 76 matches",
+        alt: "JobScout scoreboard showing 29 companies, an average score of 58, a maximum score of 95 and 104 matches",
         caption:
-          "The scoreboard from a real scan: twenty five companies, seventy six matches, a top score of seventy.",
+          "The scoreboard from a real scan: twenty nine companies, a hundred and four matches, a top score of ninety five.",
         wide: true,
         ratio: "1600 / 203",
       },
       {
         src: "/screenshots/jobscout-matches.webp",
-        alt: "Ranked JobScout matches with colour coded scores and the reasons behind each one",
+        alt: "Ranked JobScout matches led by a 95 scored Full Stack Developer role, each with the reasons behind its score",
         caption:
-          "Every match ranked and scored, with the reasoning shown rather than hidden behind the number.",
+          "Every match ranked and scored, with the reasoning shown rather than hidden behind the number. This one scored ninety five: an excellent fit.",
         wide: true,
-        ratio: "1600 / 1312",
+        ratio: "1600 / 1000",
       },
     ],
     accent: "#a78bfa",
