@@ -2,11 +2,16 @@
  * Verifies every route renders, every internal link resolves, and every
  * external link the site claims as evidence is actually reachable.
  *
- *   node scripts/smoke.mjs [baseUrl]
+ *   node scripts/smoke.mjs [baseUrl] [--local]
+ *
+ * --local skips the external link checks, for a quick health check after a
+ * server restart.
  */
 import { chromium } from "playwright";
 
-const base = (process.argv[2] ?? "http://localhost:3000").replace(/\/$/, "");
+const args = process.argv.slice(2);
+const local = args.includes("--local");
+const base = (args.find((arg) => !arg.startsWith("--")) ?? "http://localhost:3000").replace(/\/$/, "");
 const routes = [
   "/",
   "/projects/automa",
@@ -47,8 +52,8 @@ for (const route of routes) {
   }
 }
 
-console.log("\nexternal links:");
-for (const href of externals) {
+if (!local) console.log("\nexternal links:");
+for (const href of local ? [] : externals) {
   try {
     const response = await page.request.get(href, { timeout: 25000 });
     const status = response.status();
