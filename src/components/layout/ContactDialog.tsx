@@ -125,7 +125,14 @@ export function ContactDialog() {
                   aria-hidden
                 />
 
-                <div className="relative flex min-h-full items-end justify-center p-4 sm:items-center">
+                {/* This row covers the backdrop, so a click on its empty space
+                    has to close the dialog itself. */}
+                <div
+                  className="relative flex min-h-full items-end justify-center p-4 sm:items-center"
+                  onClick={(event) => {
+                    if (event.target === event.currentTarget) setOpen(false);
+                  }}
+                >
                   {/*
                 The underscores in the max height matter: Tailwind turns them
                 into the spaces calc() requires. calc(100dvh-2rem) is invalid
